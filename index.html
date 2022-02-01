@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Developer Portfolio</title>
+    <!-- CSS imports -->
+    <link rel="stylesheet" href="css/main.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header id="navbar">
+      <nav class="container">
+        <div class="logo">Portfolio</div>
+        <ul class="nav-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#timeline">Timeline</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button id="theme-toggle" aria-label="Toggle Dark Mode">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+          </button>
+          <button
+            class="nav-toggle"
+            id="nav-toggle"
+            aria-label="Toggle Navigation"
+            aria-expanded="false"
+          >
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section id="hero" class="container">
+        <div class="hero-bg fade" aria-hidden="true"></div>
+        <div class="hero-content">
+          <h1>Hi, I'm <span class="highlight">Tiago</span></h1>
+          <div class="typing-container">
+            <span id="typing-text"></span><span class="cursor">|</span>
+          </div>
+          <div class="hero-btns">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a
+              href="assets/cv.pdf"
+              class="btn btn-secondary"
+              download="cv.pdf"
+              target="_blank"
+              >Download CV</a
+            >
+          </div>
+          <div class="hero-social-links">
+            <a
+              href="https://github.com/tiago-espadinha"
+              aria-label="GitHub"
+              target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/tiago-espadinha-sim%C3%B5es/"
+              aria-label="LinkedIn"
+              target="_blank"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </section>
+      <section id="about" class="container reveal">
+        <div class="section-header">
+          <h2>About Me</h2>
+          <div class="underline"></div>
+        </div>
+        <div class="about-content">
+          <p id="about-bio"><!-- Rendered dynamically --></p>
+          <div class="skills-grid" id="skills-grid">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </section>
+      <section id="projects" class="container reveal">
+        <div class="section-header">
+          <h2>Featured Projects</h2>
+          <div class="underline"></div>
+        </div>
+        <div class="projects-grid" id="projects-grid">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+      <section id="timeline" class="container reveal">
+        <div class="section-header">
+          <h2>Learning Journey</h2>
+          <div class="underline"></div>
+        </div>
+        <div class="timeline" id="timeline-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+      <section id="contact" class="container reveal">
+        <div class="section-header">
+          <h2>Get In Touch</h2>
+          <div class="underline"></div>
+        </div>
+        <form id="contact-form" novalidate>
+          <div class="contact-info">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your Name"
+                required
+              />
+              <span class="error-msg" id="name-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Your Email"
+                required
+              />
+              <span class="error-msg" id="email-error"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Your Message (min. 20 characters)"
+              required
+            ></textarea>
+            <span class="error-msg" id="message-error"></span>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <div id="form-success" class="success-msg">
+            Message sent successfully!
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <button id="back-to-top">Back to top</button>
+        <p class="footer-text">© 2022 Tiago Simões — Crafted with passion</p>
+        <div class="social-links">
+          <a
+            href="https://github.com/tiago-espadinha"
+            aria-label="GitHub"
+            target="_blank"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/tiago-espadinha-sim%C3%B5es/"
+            aria-label="LinkedIn"
+            target="_blank"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS imports -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+  </body>
+</html>
