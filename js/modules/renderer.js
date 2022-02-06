@@ -1,5 +1,13 @@
 export function initRenderer(data) {
   renderAbout(data.about);
+  renderFooter();
+}
+
+function renderFooter() {
+  const yearEl = document.getElementById("current-year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 }
 
 function renderAbout(about) {
