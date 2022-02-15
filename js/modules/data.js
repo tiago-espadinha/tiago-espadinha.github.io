@@ -40,5 +40,27 @@ export const portfolioData = {
       githubUrl: "#",
       liveUrl: "#",
     },
-  ]
+  ],
+  timeline: [
+    {
+      date: "Jan 2021",
+      title: "Started the Journey",
+      description: "Began mastering HTML5 and CSS3 fundamentals. Built the first personal portfolio site (this one!).",
+    },
+    {
+      date: "May 2021",
+      title: "JavaScript Deep Dive",
+      description: "Explored DOM manipulation, asynchronous programming, and ES6+ features through practical projects.",
+    },
+    {
+      date: "Oct 2021",
+      title: "Full-Stack Exploration",
+      description: "Started learning Node.js and databases to build complete web applications from end to end.",
+    },
+    {
+      date: "Jan 2022",
+      title: "Advanced Frontend",
+      description: "Mastering modern frameworks like React and focusing on performance optimization and accessibility.",
+    },
+  ],
 };

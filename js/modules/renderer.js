@@ -2,6 +2,7 @@ export function initRenderer(data) {
   renderAbout(data.about);
   renderSkills(data.skills);
   renderProjects(data.projects);
+  renderTimeline(data.timeline);
   renderFooter();
 }
 
@@ -108,5 +109,40 @@ function renderProjects(projects) {
     card.appendChild(projectImg);
     card.appendChild(projectInfo);
     projectsGrid.appendChild(card);
+  });
+}
+
+function renderTimeline(timeline) {
+  const timelineContainer = document.getElementById("timeline-container");
+  if (!timelineContainer) return;
+
+  timelineContainer.innerHTML = "";
+
+  timeline.forEach((entry) => {
+    const item = document.createElement("div");
+    item.className = "timeline-item reveal";
+
+    const dot = document.createElement("div");
+    dot.className = "timeline-dot";
+
+    const date = document.createElement("div");
+    date.className = "timeline-date";
+    date.textContent = entry.date;
+
+    const content = document.createElement("div");
+    content.className = "timeline-content";
+
+    const title = document.createElement("h3");
+    title.textContent = entry.title;
+
+    const description = document.createElement("p");
+    description.textContent = entry.description;
+
+    content.appendChild(title);
+    content.appendChild(description);
+    item.appendChild(dot);
+    item.appendChild(date);
+    item.appendChild(content);
+    timelineContainer.appendChild(item);
   });
 }
