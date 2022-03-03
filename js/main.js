@@ -2,6 +2,7 @@ import { initTheme } from "./modules/theme.js";
 import { initNavigation } from "./modules/navigation.js";
 import { initTypingEffect } from "./modules/typing.js";
 import { initAnimations } from "./modules/animations.js";
+import { initContactForm } from "./modules/form.js";
 import { initRenderer } from "./modules/renderer.js";
 import { portfolioData } from "./modules/data.js";
 
@@ -11,4 +12,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initRenderer(portfolioData);
   initTypingEffect(portfolioData.hero.typingPhrases);
   initAnimations();
+  initContactForm();
 });
