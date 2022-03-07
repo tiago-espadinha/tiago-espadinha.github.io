@@ -42,7 +42,6 @@ export function initContactForm() {
         name: name.value.trim(),
         email: email.value.trim(),
         message: message.value.trim(),
-        to_email: "test@email.com",
       };
 
       sendEmail(payload)
@@ -93,7 +92,6 @@ export function initContactForm() {
         from_name: data.name,
         from_email: data.email,
         message: data.message,
-        to_email: data.to_email,
       };
 
       return emailjs.send(serviceID, templateID, templateParams);
