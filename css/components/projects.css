@@ -219,6 +219,10 @@
     gap: 1.5rem;
   }
 
+  .shot-expand-icon {
+    display: none;
+  }
+
   .project:nth-of-type(even) .project-shot {
     order: 0;
   }

@@ -7,6 +7,8 @@
  * summary    One line: what it is.
  * detail     One or two sentences: how it works.
  * stack      Short tags, shown as one comma-separated line.
+ * clip       Optional muted loop played over the screenshots, or null. See
+ *            docs/RECORDING_CLIPS.md to record one.
  * layout     "wide" for one desktop screenshot, "phones" for two phone
  *            screenshots side by side.
  * images     Screenshots: { src, alt }. The first is the clip's poster.
@@ -21,6 +23,7 @@ export const projects = [
     detail:
       "1,025 species, their moves, evolutions and locations, served as static data with no server. A build pipeline prepares the data and a service worker caches it.",
     stack: ["React 19", "TypeScript", "IndexedDB", "Workbox", "500+ tests"],
+    clip: "assets/projects/teddex.mp4",
     layout: "phones",
     images: [
       { src: "assets/projects/teddex-dex.webp", alt: "TedDex grid of species cards tinted by type" },
@@ -37,6 +40,7 @@ export const projects = [
     detail:
       "An Express API sits in front of five content providers. Favorites and collections work for guests and move to the account on sign-in.",
     stack: ["React 18", "TypeScript", "Express", "Redis", "i18next", "PWA"],
+    clip: "assets/projects/nova.mp4",
     layout: "wide",
     images: [
       { src: "assets/projects/nova.webp", alt: "Nova Stream home with a featured title and a trending shelf" },
@@ -52,6 +56,7 @@ export const projects = [
     detail:
       "Patients, admissions, lab orders, billing and pharmacy, all driven by one resource configuration. Reports export to CSV and print cleanly.",
     stack: ["React 18", "TypeScript", "React Router", "Framer Motion"],
+    clip: "assets/projects/medflow.mp4",
     layout: "wide",
     images: [
       { src: "assets/projects/medflow.webp", alt: "MedFlow dashboard with hospital KPIs and occupancy charts" },
@@ -67,6 +72,7 @@ export const projects = [
     detail:
       "Cloth, n-body gravity, reaction-diffusion, a double pendulum and more. No build step and no dependencies, only the maths and a render loop.",
     stack: ["JavaScript", "Canvas", "HTML", "CSS"],
+    clip: "assets/projects/simlab.mp4",
     layout: "wide",
     images: [
       { src: "assets/projects/simlab.webp", alt: "SimLab double pendulum tracing a chaotic path" },
