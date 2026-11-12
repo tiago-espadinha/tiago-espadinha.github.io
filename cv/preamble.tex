@@ -1,0 +1,17 @@
+% Shared by every language version: page setup and the header.
+% The language file loads babel before this one.
+\usepackage[a4paper, left=0.6in, top=0.55in, right=0.6in, bottom=0.5in]{geometry}
+
+\name{Tiago Simões}
+\address{+351 912 308 887 \\ Lisboa}
+\address{%
+  \href{mailto:tiago.espadinha.simoes@gmail.com}{tiago.espadinha.simoes@gmail.com} \\
+  \href{https://github.com/tiago-espadinha}{github.com/tiago-espadinha}%
+}
+
+% One entry in Experience or Projects: bold title and dates on one line,
+% then a plain description.
+\newcommand{\entry}[3]{%
+  {\bf #1}\hfill #2\\
+  #3\par\vspace{1ex}%
+}
