@@ -9,8 +9,12 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -23,26 +27,11 @@ svg {
   max-width: 100%;
 }
 
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
 p,
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3 {
   overflow-wrap: break-word;
-}
-
-p {
-  margin: auto;
-  max-width: 800px;
 }
 
 ul {
@@ -50,6 +39,15 @@ ul {
 }
 
 a {
-  text-decoration: none;
   color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

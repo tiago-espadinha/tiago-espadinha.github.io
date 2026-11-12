@@ -3,203 +3,157 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="assets/icons/logo.svg" />
-    <title>Personal Developer Portfolio</title>
-    <!-- CSS imports -->
-    <link rel="stylesheet" href="css/main.css" />
-    <!-- Google Fonts -->
+    <title>Tiago Simões, frontend developer in Lisbon</title>
+    <meta
+      name="description"
+      content="Frontend developer with two years of experience building web and mobile apps in React, React Native and Angular. See TedDex, Nova Stream, MedFlow and SimLab."
+    />
+    <meta property="og:title" content="Tiago Simões, frontend developer" />
+    <meta
+      property="og:description"
+      content="Two years building web and mobile apps with React and Angular. Four live projects."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#171a36" />
+    <link rel="icon" href="assets/icons/logo_lettering.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Onest:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="css/main.css" />
+    <script>
+      // Hero intro: hide the name before first paint so the logo can draw it
+      // in (js/features/intro.js). The timer shows it anyway if that
+      // script never runs.
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("intro", "intro-pending");
+        setTimeout(() => document.documentElement.classList.remove("intro-pending"), 4000);
+      }
+    </script>
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header id="navbar">
-      <nav class="container">
-        <div class="logo">
-          <img
-            src="assets/icons/logo_light.svg"
-            alt="Tiago Simões Logo"
-            class="hero-icon"
-            id="hero-icon"
-          />
-        </div>
-        <ul class="nav-links">
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#timeline">Timeline</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="nav-actions">
-          <button id="theme-toggle" aria-label="Toggle Dark Mode">
-            <span class="sun-icon">☀️</span>
-            <span class="moon-icon">🌙</span>
-          </button>
-          <button
-            class="nav-toggle"
-            id="nav-toggle"
-            aria-label="Toggle Navigation"
-            aria-expanded="false"
-          >
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-          </button>
+    <a href="#work" class="skip-link">Skip to my work</a>
+
+    <header class="hero" id="top">
+      <nav class="nav" aria-label="Main">
+        <div class="container">
+          <a href="#top" class="nav-brand" aria-label="Tiago Simões, back to top">
+            <img src="assets/icons/logo_lettering.svg" alt="" width="32" height="32" />
+            <span>Tiago Simões</span>
+          </a>
+          <ul class="nav-links">
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </div>
       </nav>
+
+      <canvas id="flock" class="hero-canvas" aria-hidden="true"></canvas>
+
+      <div class="container hero-text">
+        <h1>Tiago<br />Simões</h1>
+        <p class="hero-lede">
+          Frontend developer in Lisbon. Two years building web and mobile apps
+          with React and Angular, and working my way down the stack.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" id="work-link" href="#work"><span class="btn-label">See my work</span></a>
+          <a class="btn" id="cv-link" href="#" hidden><span class="btn-label">Download CV</span></a>
+          <div class="icon-links" id="hero-links"><!-- Rendered dynamically --></div>
+        </div>
+      </div>
+
+      <p class="hero-note">
+        The flock is one of the simulations from
+        <a href="#simlab">SimLab</a>. Move your cursor through it, or click to
+        add more.
+      </p>
     </header>
 
-    <main id="main-content">
-      <section id="hero" class="container">
-        <div class="hero-bg fade" aria-hidden="true"></div>
-        <div class="hero-content">
-          <h1>Hi, I'm <span class="highlight">Tiago</span></h1>
-          <div class="typing-container">
-            <span id="typing-text"></span><span class="cursor">|</span>
-          </div>
-          <div class="hero-btns">
-            <a href="#projects" class="btn btn-primary">View My Work</a>
-            <a
-              href="assets/cv.pdf"
-              class="btn btn-secondary"
-              download="cv.pdf"
-              target="_blank"
-              >Download CV</a
-            >
-          </div>
-          <div class="hero-social-links">
-            <a
-              href="https://github.com/tiago-espadinha"
-              aria-label="GitHub"
-              target="_blank"
-              ><i class="fab fa-github"></i
-            ></a>
-            <a
-              href="https://www.linkedin.com/in/tiago-espadinha-sim%C3%B5es/"
-              aria-label="LinkedIn"
-              target="_blank"
-              ><i class="fab fa-linkedin"></i
-            ></a>
-          </div>
-        </div>
-      </section>
-      <section id="about" class="container reveal">
-        <div class="section-header">
-          <h2>About Me</h2>
-          <div class="underline"></div>
-        </div>
-        <div class="about-content">
-          <p id="about-bio"><!-- Rendered dynamically --></p>
-          <div class="skills-grid" id="skills-grid">
-            <!-- Rendered dynamically -->
-          </div>
-        </div>
-      </section>
-      <section id="projects" class="container reveal">
-        <div class="section-header">
-          <h2>Featured Projects</h2>
-          <div class="underline"></div>
-        </div>
-        <div class="projects-grid" id="projects-grid">
-          <!-- Rendered dynamically -->
-        </div>
-      </section>
-      <section id="timeline" class="container reveal">
-        <div class="section-header">
-          <h2>Learning Journey</h2>
-          <div class="underline"></div>
-        </div>
-        <div class="timeline" id="timeline-container">
-          <!-- Rendered dynamically -->
-        </div>
-      </section>
-      <section id="contact" class="container reveal">
-        <div class="section-header">
-          <h2>Get In Touch</h2>
-          <div class="underline"></div>
-        </div>
-        <form id="contact-form" novalidate>
-          <div class="contact-info">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Your Name"
-                required
-              />
-              <span class="error-msg" id="name-error"></span>
+    <main>
+      <section id="experience">
+        <div class="container split">
+          <div>
+            <div class="heading-row">
+              <h2>Experience</h2>
+              <div class="toggle" role="tablist" aria-label="Work or education">
+                <button type="button" role="tab" id="tab-work" aria-selected="true" aria-controls="experience-list">Work</button>
+                <button type="button" role="tab" id="tab-education" aria-selected="false" aria-controls="education-list" tabindex="-1">Education</button>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Your Email"
-                required
-              />
-              <span class="error-msg" id="email-error"></span>
+            <div class="tab-panels">
+              <div id="experience-list" role="tabpanel" aria-labelledby="tab-work"><!-- Rendered dynamically --></div>
+              <div id="education-list" role="tabpanel" aria-labelledby="tab-education" hidden><!-- Rendered dynamically --></div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              placeholder="Your Message (min. 20 characters)"
-              required
-            ></textarea>
-            <span class="error-msg" id="message-error"></span>
+          <div>
+            <h2>Toolkit</h2>
+            <dl class="toolkit" id="toolkit"><!-- Rendered dynamically --></dl>
           </div>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-          <div id="form-success" class="success-msg">
-            Message sent successfully!
+        </div>
+      </section>
+
+      <section id="work">
+        <div class="container">
+          <h2>Selected work</h2>
+          <div id="projects"><!-- Rendered from content/projects.js --></div>
+          <noscript>
+            <p>
+              The project list needs JavaScript. You can also find everything on
+              <a href="https://github.com/tiago-espadinha">GitHub</a>.
+            </p>
+          </noscript>
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <div class="container">
+          <div class="split">
+            <div>
+              <h2>Get in touch</h2>
+              <p class="contact-note" id="contact-note"></p>
+              <ul class="channels" id="contact-channels"><!-- Rendered dynamically --></ul>
+            </div>
+
+            <form id="contact-form" class="form" novalidate>
+              <div class="form-pair">
+                <div class="field">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name" autocomplete="name" aria-describedby="name-error" required />
+                  <span class="field-error" id="name-error"></span>
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" autocomplete="email" aria-describedby="email-error" required />
+                  <span class="field-error" id="email-error"></span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" aria-describedby="message-error" required></textarea>
+                <span class="field-error" id="message-error"></span>
+              </div>
+              <div class="form-foot">
+                <button type="submit" class="btn btn-primary">Send message</button>
+                <p class="form-status" id="form-status" role="status"></p>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </section>
     </main>
 
-    <footer>
+    <footer class="footer">
       <div class="container">
-        <button id="back-to-top">Back to top</button>
-        <p class="footer-text">
-          © <span id="current-year">2022</span> Tiago Simões — Crafted with
-          passion
-        </p>
-        <div class="social-links">
-          <a
-            href="https://github.com/tiago-espadinha"
-            aria-label="GitHub"
-            target="_blank"
-            ><i class="fab fa-github"></i
-          ></a>
-          <a
-            href="https://www.linkedin.com/in/tiago-espadinha-sim%C3%B5es/"
-            aria-label="LinkedIn"
-            target="_blank"
-            ><i class="fab fa-linkedin"></i
-          ></a>
-        </div>
+        <p>© <span id="current-year">2026</span> Tiago Simões</p>
       </div>
     </footer>
 
-    <!-- JS imports -->
-    <script src="js/main.js" type="module" defer></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-    ></script>
+    <a href="#top" class="to-top" id="to-top" aria-label="Back to top"></a>
+
+    <script src="js/main.js" type="module"></script>
   </body>
 </html>
