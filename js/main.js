@@ -14,6 +14,14 @@ import { initProjectMedia } from "./features/media.js";
 import { initContactForm } from "./features/form.js";
 import { initLanguageSwitch } from "./features/language.js";
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch((error) => {
+      console.warn("Service worker registration failed:", error);
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Translate the static markup and build the rest of the DOM from content/.
   translatePage(content.ui);

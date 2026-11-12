@@ -16,6 +16,7 @@ My developer portfolio: a single page in plain HTML, CSS and JavaScript, with no
 - **CV in two languages:** English and Portuguese PDFs generated from the site's own content through LaTeX, and served from the page.
 - **English and Portuguese:** an EN/PT switch in the nav, with the visitor's browser language as the default and the choice remembered.
 - **Content in plain files:** projects, jobs, toolkit and contact details are edited in `content/`, without touching markup, with both languages side by side.
+- **Installable app:** the site ships a web app manifest and service worker so it can install to the home screen and load offline after the first visit.
 
 ## Stack
 
@@ -49,6 +50,12 @@ python3 -m http.server 8000
 | `npm run cv:en` / `cv:pt`    | Build one CV into `cv/build/` without publishing                |
 | `npm run cv:clean`           | Remove the CV build files                                       |
 | `npm run clips -- [name...]` | Re-record the project clips from the live sites                 |
+
+## Deploy
+
+The site is served by GitHub Pages straight from the `main` branch, with no build: Settings → Pages → Build and deployment → Deploy from a branch → `main`, `/ (root)`. Every push to `main` publishes. `.nojekyll` tells Pages to serve the files as they are. All paths are relative, so the site works at the repository's Pages URL or a custom domain.
+
+Before pushing a content change, run `npm run check`, and `npm run cv` if the CV content changed, then commit the rebuilt PDFs.
 
 ## Documentation
 
