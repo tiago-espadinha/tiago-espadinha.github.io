@@ -1,3 +1,5 @@
+import { ui } from "../../content/ui.js";
+import { t } from "../lib/i18n.js";
 import { icon } from "../lib/icons.js";
 
 /**
@@ -46,7 +48,7 @@ function setupClip(shot, video) {
   const expand = document.createElement("button");
   expand.type = "button";
   expand.className = "shot-expand";
-  expand.setAttribute("aria-label", `Expand the clip of ${title}`);
+  expand.setAttribute("aria-label", t(ui.work.expandClip, { title }));
   const badge = document.createElement("span");
   badge.className = "shot-expand-icon";
   badge.appendChild(icon("expand"));
@@ -90,17 +92,21 @@ function getViewer() {
         <button type="button" class="clip-viewer-toggle"></button>
         <span class="clip-viewer-flash" aria-hidden="true"></span>
       </div>
-      <input class="clip-viewer-progress" type="range" min="0" max="1" step="any" value="0" aria-label="Clip position" />
+      <input class="clip-viewer-progress" type="range" min="0" max="1" step="any" value="0" />
       <div class="clip-viewer-bar">
         <h3 class="clip-viewer-title"></h3>
         <div class="clip-viewer-links"></div>
       </div>
     </div>`;
 
+  dialog
+    .querySelector(".clip-viewer-progress")
+    .setAttribute("aria-label", t(ui.work.clipPosition));
+
   const close = document.createElement("button");
   close.type = "button";
   close.className = "clip-viewer-close";
-  close.setAttribute("aria-label", "Close");
+  close.setAttribute("aria-label", t(ui.work.close));
   close.appendChild(icon("close"));
   close.addEventListener("click", () => dialog.dismiss());
   // Inside the stage, so it rides along with the clip as it swings in and
@@ -135,7 +141,7 @@ function getViewer() {
   const syncToggle = () => {
     toggle.setAttribute(
       "aria-label",
-      video.paused ? "Play clip" : "Pause clip",
+      t(video.paused ? ui.work.play : ui.work.pause),
     );
   };
   toggle.addEventListener("click", () => {
@@ -178,16 +184,19 @@ function getViewer() {
   });
   // Arrow keys step a twentieth of the clip rather than a sliver of a second.
   progress.addEventListener("keydown", (e) => {
-    const dir = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[
-      e.key
-    ];
+    const dir = {
+      ArrowRight: 1,
+      ArrowUp: 1,
+      ArrowLeft: -1,
+      ArrowDown: -1,
+    }[e.key];
     if (!dir || !video.duration) return;
     e.preventDefault();
-    const t =
+    const time =
       (video.currentTime + (dir * video.duration) / 20 + video.duration) %
       video.duration;
-    video.currentTime = t;
-    progress.value = t;
+    video.currentTime = time;
+    progress.value = time;
     paint();
   });
 
@@ -224,7 +233,7 @@ function openViewer(shot, inlineVideo, title) {
   const dialog = getViewer();
   const video = dialog.querySelector("video");
 
-  dialog.setAttribute("aria-label", `${title} clip`);
+  dialog.setAttribute("aria-label", t(ui.work.viewerLabel, { title }));
   dialog.querySelector(".clip-viewer-title").textContent = title;
   video.src = inlineVideo.currentSrc || inlineVideo.src;
   video.setAttribute(
@@ -262,8 +271,14 @@ function openViewer(shot, inlineVideo, title) {
 // Per frame: k pulls toward the target, d is the share of velocity kept.
 // Damping ratio = -ln(d) / (2 * sqrt(k)). Soft enough that the swing across
 // half the screen reads as a swing, not a jump.
-const OPEN_SPRING = { k: 0.05, d: 0.765 }; // ratio ~0.6: lands a touch past flat
-const CLOSE_SPRING = { k: 0.045, d: 0.712 }; // ~0.8: drops into its slot without bouncing out
+const OPEN_SPRING = {
+  k: 0.05,
+  d: 0.765,
+}; // ratio ~0.6: lands a touch past flat
+const CLOSE_SPRING = {
+  k: 0.045,
+  d: 0.712,
+}; // ~0.8: drops into its slot without bouncing out
 const PIVOT_REACH = 1.25; // pivot sits this many clip heights below the clip
 const MAX_TILT = 14; // degrees, for a clip at the edge of the viewport
 const RADIUS = 14; // px, matches --radius
@@ -330,11 +345,11 @@ function createSwing(dialog) {
   function springTo(target, { k, d }, onRest) {
     cancelAnimationFrame(raf);
     let prev = 0;
-    const tick = (t) => {
+    const tick = (now) => {
       // Frames, not ms: damping is raised to dt so a dropped frame loses the
       // same energy as the two it replaced.
-      const dt = prev ? Math.min(Math.max((t - prev) / 16.67, 0), 2.5) : 1;
-      prev = t;
+      const dt = prev ? Math.min(Math.max((now - prev) / 16.67, 0), 2.5) : 1;
+      prev = now;
       v += (target - p) * k * dt;
       v *= Math.pow(d, dt);
       p += v * dt;
@@ -433,7 +448,7 @@ function setupPan(shot) {
   const cue = document.createElement("span");
   cue.className = "shot-cue";
   cue.setAttribute("aria-hidden", "true");
-  cue.textContent = phones ? "Hover to scroll" : "Hover to look closer";
+  cue.textContent = t(phones ? ui.work.hoverScroll : ui.work.hoverZoom);
   shot.appendChild(cue);
 
   // The rest is CSS: phone screenshots scroll, wide ones zoom and follow the
@@ -506,7 +521,10 @@ function trackAmbientPointer(shots) {
 
   window.addEventListener("pointermove", (e) => {
     if (e.pointerType !== "mouse") return;
-    cursor = { x: e.clientX, y: e.clientY };
+    cursor = {
+      x: e.clientX,
+      y: e.clientY,
+    };
     queue();
   });
   // Scrolling moves the shots under a still cursor.

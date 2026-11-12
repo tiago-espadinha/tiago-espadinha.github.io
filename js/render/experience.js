@@ -1,4 +1,6 @@
+import { ui } from "../../content/ui.js";
 import { el, mount } from "../lib/dom.js";
+import { t } from "../lib/i18n.js";
 
 /** Jobs and education share one layout: dates, title, description. */
 export function renderTimeline(containerId, entries) {
@@ -6,11 +8,15 @@ export function renderTimeline(containerId, entries) {
   if (!container) return;
 
   entries.forEach((entry) => {
+    const dates =
+      entry.to === null
+        ? t(ui.experience.ongoing, { from: entry.from })
+        : t(ui.experience.range, { from: entry.from, to: entry.to });
     const item = el("div", "job");
     item.append(
-      el("p", "job-dates", entry.dates),
-      el("h3", "", entry.title),
-      el("p", "job-description", entry.description),
+      el("p", "job-dates", dates),
+      el("h3", "", t(entry.title)),
+      el("p", "job-description", t(entry.description)),
     );
     container.appendChild(item);
   });
@@ -23,8 +29,8 @@ export function renderToolkit(toolkit) {
 
   toolkit.forEach((group) => {
     list.append(
-      el("dt", "", group.label),
-      el("dd", "", group.items.join(", ")),
+      el("dt", "", t(group.label)),
+      el("dd", "", group.items.map((item) => t(item)).join(", ")),
     );
   });
 }

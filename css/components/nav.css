@@ -40,6 +40,7 @@
 
 .nav-brand {
   display: flex;
+  margin-right: auto; /* pushes the links and the language switch right */
   align-items: center;
   gap: 0.6rem;
   font: 800 1.125rem var(--font-display);
@@ -118,6 +119,50 @@
   opacity: 1;
 }
 
+/* Language switch: a small pill after the links, in the toggle's style */
+.lang-switch {
+  --lang-travel: 1.6rem; /* clear of the badge's edge, padding included */
+  display: inline-grid;
+  overflow: hidden;
+  margin-left: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border: 1.5px solid var(--color-line);
+  border-radius: 999px;
+  color: var(--color-mist);
+  font: 600 0.8125rem/1.4 var(--font-body);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.lang-switch:hover,
+.lang-switch.is-switching {
+  border-color: var(--color-amber);
+  color: var(--color-chalk);
+}
+
+/* The current code, and the other one waiting below the edge. On click
+   (language.js) they trade places, as the send button's faces do. */
+.lang-face {
+  grid-area: 1 / 1;
+  text-align: center;
+  transition: translate 0.35s var(--ease-out);
+}
+
+.lang-next {
+  translate: 0 var(--lang-travel);
+}
+
+.lang-switch.is-switching .lang-current {
+  translate: 0 calc(-1 * var(--lang-travel));
+}
+
+.lang-switch.is-switching .lang-next {
+  translate: 0 0;
+}
+
 @media (max-width: 800px) {
   .nav-links {
     gap: 0.9rem;
@@ -129,5 +174,15 @@
 @media (max-width: 480px) {
   .nav-brand span {
     display: none;
+  }
+
+  .nav-links {
+    gap: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .lang-switch {
+    margin-left: 0;
+    padding: 0.15rem 0.5rem;
   }
 }
