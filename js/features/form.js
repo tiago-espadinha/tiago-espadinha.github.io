@@ -147,11 +147,11 @@ function loadSdk() {
   sdkPromise ??= new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = SDK_URL;
-    script.onload = () => resolve(window.emailjs);
-    script.onerror = () => {
+    script.addEventListener("load", () => resolve(window.emailjs));
+    script.addEventListener("error", () => {
       sdkPromise = undefined; // allow a retry on the next submit
       reject(new Error("EmailJS failed to load"));
-    };
+    });
     document.head.appendChild(script);
   });
   return sdkPromise;

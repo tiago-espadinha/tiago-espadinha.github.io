@@ -1,0 +1,27 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "import", "promise", "oxc", "unicorn"],
+  "env": {
+    "browser": true,
+    "es2024": true
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "no-unused-vars": "error",
+    "import/no-cycle": "error",
+    "unicorn/consistent-function-scoping": "off"
+  },
+  "ignorePatterns": ["cv/build/**", "CV_Tiago_Simoes/**"],
+  "overrides": [
+    {
+      "files": ["scripts/**"],
+      "env": {
+        "node": true,
+        "browser": false
+      }
+    }
+  ]
+}
