@@ -1,14 +1,16 @@
+import { ui } from "../../content/ui.js";
 import { el, externalLink, mount } from "../lib/dom.js";
+import { t } from "../lib/i18n.js";
 import { icon } from "../lib/icons.js";
 
 /** Every place the contact details appear: the hero and the contact section. */
 export function renderContact(contact) {
   const note = document.getElementById("contact-note");
-  if (note) note.textContent = contact.note;
+  if (note) note.textContent = t(contact.note);
 
   renderChannels(contact);
   renderHeroLinks(contact);
-  renderHeroCv(contact.cv);
+  renderHeroCv(t(contact.cv));
 }
 
 /** Ways to reach me: one row each, in the same shape. */
@@ -17,7 +19,12 @@ function renderChannels(contact) {
   if (!channels) return;
 
   const rows = [
-    { label: "Email", value: contact.email, icon: "mail", url: `mailto:${contact.email}` },
+    {
+      label: t(ui.contact.email),
+      value: contact.email,
+      icon: "mail",
+      url: `mailto:${contact.email}`,
+    },
     ...contact.links.map((link) => ({
       label: link.label,
       value: link.handle,
@@ -27,7 +34,13 @@ function renderChannels(contact) {
     })),
   ];
   if (contact.cv) {
-    rows.push({ label: "CV", value: "Download the PDF", icon: "download", url: contact.cv, download: true });
+    rows.push({
+      label: t(ui.contact.cv),
+      value: t(ui.contact.cvValue),
+      icon: "download",
+      url: t(contact.cv),
+      download: true,
+    });
   }
 
   rows.forEach((row) => {
@@ -38,7 +51,10 @@ function renderChannels(contact) {
     const badge = el("span", "channel-icon");
     badge.appendChild(icon(row.icon));
     const text = el("span", "channel-text");
-    text.append(el("span", "channel-label", row.label), el("span", "channel-value", row.value));
+    text.append(
+      el("span", "channel-label", row.label),
+      el("span", "channel-value", row.value),
+    );
     const arrow = icon(row.download ? "download" : "arrowUpRight");
     arrow.classList.add("channel-arrow");
 
@@ -56,7 +72,7 @@ function renderHeroLinks(contact) {
 
   const email = el("a");
   email.href = `mailto:${contact.email}`;
-  email.setAttribute("aria-label", "Email");
+  email.setAttribute("aria-label", t(ui.contact.email));
   email.appendChild(icon("mail"));
   heroLinks.appendChild(email);
 

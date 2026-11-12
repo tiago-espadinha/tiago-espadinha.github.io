@@ -1,4 +1,6 @@
+import { ui } from "../../content/ui.js";
 import { el, externalLink, mount } from "../lib/dom.js";
+import { t } from "../lib/i18n.js";
 
 /** Selected work: one row per project, media beside text. */
 export function renderProjects(projects) {
@@ -22,7 +24,7 @@ function projectShot(project) {
   project.images.forEach((image) => {
     const img = document.createElement("img");
     img.src = image.src;
-    img.alt = image.alt;
+    img.alt = t(image.alt);
     img.loading = "lazy";
     shot.appendChild(img);
   });
@@ -35,7 +37,12 @@ function projectShot(project) {
     video.loop = true;
     video.playsInline = true;
     video.preload = "none";
-    video.setAttribute("aria-label", `Short clip of ${project.title} in use`);
+    video.setAttribute(
+      "aria-label",
+      t(ui.work.clipLabel, {
+        title: project.title,
+      }),
+    );
     shot.appendChild(video);
   }
   return shot;
@@ -45,15 +52,15 @@ function projectInfo(project) {
   const info = el("div", "project-info");
   info.append(
     el("h3", "", project.title),
-    el("p", "project-summary", project.summary),
-    el("p", "project-detail", project.detail),
-    el("p", "project-stack", project.stack.join(", ")),
+    el("p", "project-summary", t(project.summary)),
+    el("p", "project-detail", t(project.detail)),
+    el("p", "project-stack", project.stack.map((tag) => t(tag)).join(", ")),
   );
 
   const links = el("div", "link-row");
   links.append(
-    externalLink(project.liveLabel, project.liveUrl),
-    externalLink("Read the code", project.codeUrl),
+    externalLink(t(project.liveLabel), project.liveUrl),
+    externalLink(t(ui.work.readCode), project.codeUrl),
   );
   info.appendChild(links);
   return info;

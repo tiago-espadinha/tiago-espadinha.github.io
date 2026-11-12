@@ -27,7 +27,10 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
 const OUT_DIR = resolve(import.meta.dirname, "../assets/projects");
-const SIZE = { width: 1920, height: 1200 };
+const SIZE = {
+  width: 1920,
+  height: 1200,
+};
 const BACKDROP = "#20244a"; // --color-ink-raised, around the phone-sized clip
 const CRF = 20; // lower is sharper and larger; 18 to 23 is the useful range
 
@@ -35,7 +38,10 @@ const scenes = {
   teddex: {
     url: "https://teddex.vercel.app/",
     // A phone viewport at 3x, placed in the middle of the 16:10 frame.
-    viewport: { width: 384, height: 640 },
+    viewport: {
+      width: 384,
+      height: 640,
+    },
     scale: 3,
     colorScheme: "light", // matches its screenshots
     async run(s) {
@@ -49,7 +55,19 @@ const scenes = {
       await s.hold(1200);
       await s.scroll(-520);
       await s.hold(400);
-      await s.click(s.page.getByRole("tab", { name: "Moves" }).or(s.page.getByRole("button", { name: "Moves", exact: true })).first());
+      await s.click(
+        s.page
+          .getByRole("tab", {
+            name: "Moves",
+          })
+          .or(
+            s.page.getByRole("button", {
+              name: "Moves",
+              exact: true,
+            }),
+          )
+          .first(),
+      );
       await s.hold(900);
       await s.scroll(420);
       await s.hold(1500);
@@ -58,7 +76,10 @@ const scenes = {
 
   nova: {
     url: "https://nova-stream-theta.vercel.app/",
-    viewport: { width: 1280, height: 800 },
+    viewport: {
+      width: 1280,
+      height: 800,
+    },
     scale: 1.5,
     async run(s) {
       await s.click("#site-search");
@@ -67,7 +88,14 @@ const scenes = {
       await loaded(s);
       await s.hold(1400);
       for (const tab of ["Movies", "Books", "Music"]) {
-        await s.click(s.page.getByRole("button", { name: tab, exact: true }).first());
+        await s.click(
+          s.page
+            .getByRole("button", {
+              name: tab,
+              exact: true,
+            })
+            .first(),
+        );
         await loaded(s);
         await s.hold(1600);
       }
@@ -79,7 +107,10 @@ const scenes = {
 
   medflow: {
     url: "https://med-flow-amber.vercel.app/",
-    viewport: { width: 1280, height: 800 },
+    viewport: {
+      width: 1280,
+      height: 800,
+    },
     scale: 1.5,
     async run(s) {
       await s.hold(500);
@@ -88,11 +119,21 @@ const scenes = {
       await s.click('input[placeholder="e.g. Sam Rivera"]');
       await s.type("Sam Rivera");
       await s.hold(300);
-      await s.click(s.page.getByRole("button", { name: "Enter workspace" }));
+      await s.click(
+        s.page.getByRole("button", {
+          name: "Enter workspace",
+        }),
+      );
       await s.hold(2400);
       await s.glide(760, 330);
       await s.hold(1200);
-      await s.click(s.page.getByRole("link", { name: "Admissions" }).first());
+      await s.click(
+        s.page
+          .getByRole("link", {
+            name: "Admissions",
+          })
+          .first(),
+      );
       await s.hold(1500);
       await s.glide(900, 520, 900);
       await s.glide(900, 600, 600);
@@ -102,7 +143,10 @@ const scenes = {
 
   simlab: {
     url: "https://simlab.vercel.app/cloth/",
-    viewport: { width: 1280, height: 800 },
+    viewport: {
+      width: 1280,
+      height: 800,
+    },
     scale: 1.5,
     crf: 23, // busy full-frame motion; 20 would double the file for little gain
     async run(s) {
@@ -129,8 +173,14 @@ const scenes = {
 async function loaded(s) {
   await s.cut(async () => {
     await s.hold(300);
-    await s.page.getByText(/Searching live databases/i).first()
-      .waitFor({ state: "hidden", timeout: 20000 }).catch(() => {});
+    await s.page
+      .getByText(/Searching live databases/i)
+      .first()
+      .waitFor({
+        state: "hidden",
+        timeout: 20000,
+      })
+      .catch(() => {});
     await s.hold(400); // let the cards fade in
   }, 350);
 }
@@ -174,11 +224,19 @@ async function startRecorder(page, dir, maxSize) {
     if (paused) return;
     const file = join(dir, `f${String(n++).padStart(5, "0")}.jpg`);
     writeFileSync(file, Buffer.from(data, "base64"));
-    frames.push({ file, t: metadata.timestamp - pausedFor });
+    frames.push({
+      file,
+      t: metadata.timestamp - pausedFor,
+    });
   });
 
   const start = () =>
-    cdp.send("Page.startScreencast", { format: "jpeg", quality: 92, ...maxSize, everyNthFrame: 1 });
+    cdp.send("Page.startScreencast", {
+      format: "jpeg",
+      quality: 92,
+      ...maxSize,
+      everyNthFrame: 1,
+    });
   await start();
 
   return {
@@ -206,7 +264,10 @@ function encode({ frames, end }, dir, out, fit, crf) {
   const lines = ["ffconcat version 1.0"];
   frames.forEach((f, i) => {
     const next = frames[i + 1]?.t ?? end;
-    lines.push(`file '${f.file}'`, `duration ${Math.max(next - f.t, 0.001).toFixed(4)}`);
+    lines.push(
+      `file '${f.file}'`,
+      `duration ${Math.max(next - f.t, 0.001).toFixed(4)}`,
+    );
   });
   lines.push(`file '${frames.at(-1).file}'`); // the concat demuxer drops the last duration otherwise
   const list = join(dir, "frames.txt");
@@ -221,14 +282,35 @@ function encode({ frames, end }, dir, out, fit, crf) {
     "format=yuv420p",
   ].join(",");
 
-  execFileSync("ffmpeg", [
-    "-v", "error", "-y",
-    "-f", "concat", "-safe", "0", "-i", list,
-    "-vf", vf,
-    "-c:v", "libx264", "-preset", "slow", "-crf", String(crf),
-    "-profile:v", "high", "-movflags", "+faststart", "-an",
-    out,
-  ], { stdio: "inherit" });
+  execFileSync(
+    "ffmpeg",
+    [
+      "-v",
+      "error",
+      "-y",
+      "-f",
+      "concat",
+      "-safe",
+      "0",
+      "-i",
+      list,
+      "-vf",
+      vf,
+      "-c:v",
+      "libx264",
+      "-preset",
+      "slow",
+      "-crf",
+      String(crf),
+      "-profile:v",
+      "high",
+      "-movflags",
+      "+faststart",
+      "-an",
+      out,
+    ],
+    { stdio: "inherit" },
+  );
 }
 
 /* ---------- Scene helpers ---------- */
@@ -248,7 +330,7 @@ function makeStage(page, rec) {
     async glide(tx, ty, ms = 650) {
       const [sx, sy] = [x, y];
       const t0 = Date.now();
-      for (let u = 0; u < 1; ) {
+      for (let u = 0; u < 1;) {
         u = Math.min((Date.now() - t0) / ms, 1);
         const k = ease(u);
         await page.mouse.move(sx + (tx - sx) * k, sy + (ty - sy) * k);
@@ -259,8 +341,12 @@ function makeStage(page, rec) {
     /** Glide to a selector or locator (or to x, y when target is null) and click it. */
     async click(target, px, py) {
       if (target) {
-        const loc = typeof target === "string" ? page.locator(target).first() : target;
-        await loc.waitFor({ state: "visible", timeout: 15000 });
+        const loc =
+          typeof target === "string" ? page.locator(target).first() : target;
+        await loc.waitFor({
+          state: "visible",
+          timeout: 15000,
+        });
         await loc.scrollIntoViewIfNeeded();
         const box = await loc.boundingBox();
         px = box.x + Math.min(box.width / 2, 60);
@@ -281,7 +367,7 @@ function makeStage(page, rec) {
     async scroll(dy, ms = 900) {
       const t0 = Date.now();
       let done = 0;
-      for (let u = 0; u < 1; ) {
+      for (let u = 0; u < 1;) {
         u = Math.min((Date.now() - t0) / ms, 1);
         const to = dy * ease(u);
         await page.mouse.wheel(0, to - done);
@@ -305,7 +391,9 @@ function makeStage(page, rec) {
     /** Load another page with the load itself cut from the clip. */
     async visit(url) {
       rec.pause();
-      await page.goto(url, { waitUntil: "networkidle" });
+      await page.goto(url, {
+        waitUntil: "networkidle",
+      });
       await page.mouse.move(x, y); // put the dot back where it was
       await wait(400);
       await rec.resume();
@@ -320,11 +408,19 @@ const wanted = process.argv.slice(2);
 const names = wanted.length ? wanted : Object.keys(scenes);
 const unknown = names.filter((n) => !scenes[n]);
 if (unknown.length) {
-  console.error(`Unknown clip: ${unknown.join(", ")}. Known: ${Object.keys(scenes).join(", ")}`);
+  console.error(
+    `Unknown clip: ${unknown.join(", ")}. Known: ${Object.keys(scenes).join(", ")}`,
+  );
   process.exit(1);
 }
 
-const browser = await chromium.launch(process.env.CHROME ? { executablePath: process.env.CHROME } : {});
+const browser = await chromium.launch(
+  process.env.CHROME
+    ? {
+        executablePath: process.env.CHROME,
+      }
+    : {},
+);
 try {
   for (const name of names) {
     const scene = scenes[name];
@@ -337,7 +433,9 @@ try {
     });
     await context.addInitScript(CURSOR_SCRIPT);
     const page = await context.newPage();
-    await page.goto(scene.url, { waitUntil: "networkidle" });
+    await page.goto(scene.url, {
+      waitUntil: "networkidle",
+    });
     await page.waitForTimeout(800); // let entrance animations finish before recording
 
     const pixels = {
@@ -351,11 +449,17 @@ try {
     await context.close();
 
     const out = join(OUT_DIR, `${name}.mp4`);
-    const fit = scene.viewport.width / scene.viewport.height < 1 ? "pad" : "fill";
+    const fit =
+      scene.viewport.width / scene.viewport.height < 1 ? "pad" : "fill";
     encode(result, dir, out, fit, scene.crf ?? CRF);
-    rmSync(dir, { recursive: true, force: true });
+    rmSync(dir, {
+      recursive: true,
+      force: true,
+    });
     const secs = (result.end - result.frames[0].t).toFixed(1);
-    console.log(`${name}: ${result.frames.length} frames, ${secs}s -> ${out} (took ${((Date.now() - started) / 1000).toFixed(0)}s)`);
+    console.log(
+      `${name}: ${result.frames.length} frames, ${secs}s -> ${out} (took ${((Date.now() - started) / 1000).toFixed(0)}s)`,
+    );
   }
 } finally {
   await browser.close();

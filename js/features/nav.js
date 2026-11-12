@@ -50,7 +50,10 @@ export function initNav() {
       if (section && section.getBoundingClientRect().top <= line) next = i;
     });
     const doc = document.documentElement;
-    if (next >= 0 && window.innerHeight + window.scrollY >= doc.scrollHeight - 2) {
+    if (
+      next >= 0 &&
+      window.innerHeight + window.scrollY >= doc.scrollHeight - 2
+    ) {
       next = sections.length - 1;
     }
     if (next === current) return;

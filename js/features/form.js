@@ -1,3 +1,5 @@
+import { ui } from "../../content/ui.js";
+import { t } from "../lib/i18n.js";
 import { icon } from "../lib/icons.js";
 
 /**
@@ -10,10 +12,9 @@ const SDK_URL =
   "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
 
 const RULES = {
-  name: (v) => (v ? "" : "Please add your name."),
-  email: (v) =>
-    /^\S+@\S+\.\S+$/.test(v) ? "" : "Please enter a valid email.",
-  message: (v) => (v ? "" : "Please write a message."),
+  name: (v) => (v ? "" : t(ui.form.nameMissing)),
+  email: (v) => (/^\S+@\S+\.\S+$/.test(v) ? "" : t(ui.form.emailInvalid)),
+  message: (v) => (v ? "" : t(ui.form.messageMissing)),
 };
 
 // The plane gets at least one full lap, so a fast send still reads as sent.
@@ -81,19 +82,23 @@ export function initContactForm(contact) {
             from_email: form.elements.email.value.trim(),
             message: form.elements.message.value.trim(),
           },
-          { publicKey: contact.form.publicKey },
+          {
+            publicKey: contact.form.publicKey,
+          },
         ),
         wait(MIN_SENDING_MS),
       ]);
       form.reset();
       setButton("sent");
-      setStatus("Message sent. I will get back to you soon.", "success");
+      setStatus(t(ui.form.success), "success");
       resetTimer = setTimeout(() => setButton("idle"), SENT_HOLD_MS);
     } catch (err) {
       console.error("Contact form send failed", err);
       setButton("error");
       setStatus(
-        `The message could not be sent. Please email me at ${contact.email} instead.`,
+        t(ui.form.failure, {
+          email: contact.email,
+        }),
         "error",
       );
     } finally {
@@ -109,19 +114,10 @@ export function initContactForm(contact) {
  */
 function buildSendButton(button) {
   const LABELS = {
-    idle: "Send message",
-    sending: "Sending",
-    sent: "Sent",
-    error: "Try again",
-  };
-
-  const face = (className, iconName, text) => {
-    const span = document.createElement("span");
-    span.className = `send-face ${className}`;
-    span.setAttribute("aria-hidden", "true");
-    if (iconName) span.append(icon(iconName));
-    if (text) span.append(text);
-    return span;
+    idle: t(ui.form.send),
+    sending: t(ui.form.sending),
+    sent: t(ui.form.sent),
+    error: t(ui.form.retry),
   };
 
   button.classList.add("btn-send");
@@ -140,6 +136,15 @@ function buildSendButton(button) {
   return set;
 }
 
+function face(className, iconName, text) {
+  const span = document.createElement("span");
+  span.className = `send-face ${className}`;
+  span.setAttribute("aria-hidden", "true");
+  if (iconName) span.append(icon(iconName));
+  if (text) span.append(text);
+  return span;
+}
+
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 let sdkPromise;
@@ -147,11 +152,11 @@ function loadSdk() {
   sdkPromise ??= new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = SDK_URL;
-    script.onload = () => resolve(window.emailjs);
-    script.onerror = () => {
+    script.addEventListener("load", () => resolve(window.emailjs));
+    script.addEventListener("error", () => {
       sdkPromise = undefined; // allow a retry on the next submit
       reject(new Error("EmailJS failed to load"));
-    };
+    });
     document.head.appendChild(script);
   });
   return sdkPromise;

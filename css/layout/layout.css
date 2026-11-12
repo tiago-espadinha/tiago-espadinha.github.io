@@ -1,4 +1,11 @@
 /* Page frame: body, containers, sections and headings */
+
+/* A page in another language than the markup's waits for main.js to translate
+   it (index.html adds the class and removes it after 3s at most). */
+.i18n-pending body {
+  visibility: hidden;
+}
+
 body {
   background: var(--color-ink);
   color: var(--color-chalk);

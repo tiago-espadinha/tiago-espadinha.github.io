@@ -41,7 +41,11 @@ export function initFlock(canvas) {
   let W = 0;
   let H = 0;
   let boids = [];
-  const mouse = { x: 0, y: 0, active: false };
+  const mouse = {
+    x: 0,
+    y: 0,
+    active: false,
+  };
 
   // -------------------------------------------------------------------------
   // Sizing
@@ -108,7 +112,12 @@ export function initFlock(canvas) {
       const cy = Math.min(rows - 1, Math.max(0, Math.floor(b.y / cellSize)));
       cells[cy * cols + cx].push(b);
     }
-    return { cells, cols, rows, cellSize };
+    return {
+      cells,
+      cols,
+      rows,
+      cellSize,
+    };
   }
 
   /** Collect neighbours from the 3x3 block of cells around a boid. */
@@ -143,8 +152,14 @@ export function initFlock(canvas) {
     let expired = false;
 
     for (const b of boids) {
-      let sepX = 0, sepY = 0, aliX = 0, aliY = 0, cohX = 0, cohY = 0;
-      let sepN = 0, flockN = 0;
+      let sepX = 0,
+        sepY = 0,
+        aliX = 0,
+        aliY = 0,
+        cohX = 0,
+        cohY = 0;
+      let sepN = 0,
+        flockN = 0;
 
       neighbours(grid, b, near);
       for (let i = 0; i < near.length; i++) {
@@ -249,7 +264,8 @@ export function initFlock(canvas) {
     ctx.clearRect(0, 0, W, H);
     const sz = CONFIG.size;
     for (const b of boids) {
-      const fade = b.life === undefined ? 1 : Math.min(1, b.life / CONFIG.burstFade);
+      const fade =
+        b.life === undefined ? 1 : Math.min(1, b.life / CONFIG.burstFade);
       ctx.globalAlpha = 0.85 * fade;
       ctx.save();
       ctx.translate(b.x, b.y);

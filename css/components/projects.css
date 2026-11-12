@@ -37,7 +37,10 @@
 .project-shot--phones {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: minmax(0, 1fr); /* crop to the box so the hover scroll has room */
+  grid-template-rows: minmax(
+    0,
+    1fr
+  ); /* crop to the box so the hover scroll has room */
   gap: 1.5rem;
   padding: 1.5rem 1.5rem 0;
 }

@@ -1,22 +1,67 @@
 /**
  * The Toolkit list beside Experience: one row per group, in this order.
- * Each group: { label, items }.
+ * Each group: { label: {en, pt}, items }. An item that needs translating
+ * can be {en, pt}; names of tools stay plain strings. The CV lists the groups
+ * without `onCv: false` as skills, then its own rows from content/cv.js.
  */
 export const toolkit = [
   {
-    label: "Every day",
+    label: {
+      en: "Every day",
+      pt: "Dia a dia",
+    },
     items: ["TypeScript", "Angular", "React", "HTML", "CSS", "Git"],
   },
   {
-    label: "Shipped with",
-    items: ["Next.js", "React Native", "Expo", "Redux", "GraphQL", "REST", "Node", "Jest"],
+    label: {
+      en: "Shipped with",
+      pt: "Em produção",
+    },
+    items: [
+      "Next.js",
+      "React Native",
+      "Expo",
+      "Redux",
+      "GraphQL",
+      "REST",
+      "Node",
+      "Jest",
+    ],
   },
   {
-    label: "Side projects",
-    items: ["PWAs and offline storage", "Vite", "Express", "Canvas"],
+    label: {
+      en: "Side projects",
+      pt: "Projetos pessoais",
+    },
+    onCv: false,
+    items: [
+      {
+        en: "PWAs and offline storage",
+        pt: "PWAs e armazenamento offline",
+      },
+      "Vite",
+      "Express",
+      "Canvas",
+    ],
   },
   {
-    label: "Learning now",
-    items: ["SQL and schema design", "Auth", "Docker", "CI/CD", "AWS"],
+    label: {
+      en: "Learning now",
+      pt: "A aprender",
+    },
+    onCv: false,
+    items: [
+      {
+        en: "SQL and schema design",
+        pt: "SQL e modelação de dados",
+      },
+      {
+        en: "Auth",
+        pt: "Autenticação",
+      },
+      "Docker",
+      "CI/CD",
+      "AWS",
+    ],
   },
 ];

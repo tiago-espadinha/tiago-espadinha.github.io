@@ -1,18 +1,18 @@
 # Architecture
 
-A static single page with no build step. `index.html` holds the page skeleton and hero copy; `js/main.js` renders the rest of the sections from the content modules in `content/`, then attaches behaviour to the rendered DOM. Styles are plain CSS files joined by `css/main.css`. The CV is a separate LaTeX project in `cv/` whose output PDF is committed to `assets/`.
+A static single page with no build step. `index.html` holds the page skeleton and hero copy; `js/main.js` renders the rest of the sections from the content modules in `content/`, then attaches behaviour to the rendered DOM. Styles are plain CSS files joined by `css/main.css`. The CV is generated from the same `content/` into LaTeX, and its output PDFs are committed to `assets/`.
 
 ```text
 content/*.js ──> js/render/*  ──> DOM ──> js/features/*
                   (build markup)          (motion, media, form)
-cv/*.tex ── make ──> assets/cv.pdf ──> linked from content/contact.js
+content/*.js ──> scripts/build-cv.mjs ──> cv/build/cv-*.tex ── latexmk ──> assets/tiago_simoes-cv_*.pdf
 ```
 
 ## Stack and runtime
 
 - Language and framework: HTML, CSS and JavaScript ES modules. No framework.
 - Runtime: any current browser. Served as static files.
-- Package manager: none for the site. `scripts/record-clips.mjs` uses Node, Playwright and ffmpeg, installed only when re-recording clips.
+- Package manager: npm, for development tools only (oxlint, oxfmt); the site itself has no dependencies or build. `scripts/record-clips.mjs` uses Node, Playwright and ffmpeg, installed only when re-recording clips.
 - Entry points: `index.html`, `js/main.js`, `css/main.css`, `cv/Makefile`.
 
 ## Layout
@@ -24,7 +24,7 @@ js/
   main.js              renders content, then starts features
   render/              build DOM from content: projects, experience, contact, chrome
   features/            behaviour: flock, intro, nav, tabs, media, form
-  lib/                 shared helpers: dom.js, icons.js
+  lib/                 shared helpers: dom.js, icons.js, i18n.js
 css/
   main.css             import order (tokens, base, layout, components, effects)
   base/                tokens, reset, focus and skip link
@@ -32,8 +32,8 @@ css/
   components/          one file per component, in page order
   effects/             entrance animations and the reduced-motion overrides
 assets/                logo, project screenshots and clips, CV PDFs
-cv/                    LaTeX CV sources and Makefile
-scripts/               clip recorder
+cv/                    CV style (resume.cls), page setup (preamble.tex) and Makefile
+scripts/               CV generator, locale check, clip recorder
 ```
 
 Rule of thumb: content changes touch `content/` only; new markup goes in `js/render/`; new interaction goes in `js/features/`; a new component gets its own CSS file and an import in `css/main.css`.
@@ -42,8 +42,9 @@ Rule of thumb: content changes touch `content/` only; new markup goes in `js/ren
 
 `main.js` runs two passes on `DOMContentLoaded`:
 
-1. **Render.** Each `js/render/` module empties its mount point (an element with a known id in `index.html`) and rebuilds it from content. Text is set with `textContent`, never parsed as HTML.
-2. **Behaviour.** `js/features/` modules find the rendered elements by class or role and add listeners. `media.js` must run after the projects render; the others only need the static skeleton.
+1. **Translate.** `translatePage()` (`js/lib/i18n.js`) fills the `data-i18n` keys in `index.html` from `content/ui.js` in the visitor's language. The inline script in `<head>` picks that language before first paint and, if it isn't English, keeps the page hidden until this runs (3 s at most). Renderers and features read text through `t()`, which falls back to English. Switching language saves the choice, puts it in the URL and reloads, skipping the intro.
+2. **Render.** Each `js/render/` module empties its mount point (an element with a known id in `index.html`) and rebuilds it from content. Text is set with `textContent`, never parsed as HTML.
+3. **Behaviour.** `js/features/` modules find the rendered elements by class or role and add listeners. `media.js` must run after the projects render; the others only need the static skeleton.
 
 The hero name stays in `index.html` so it shows without JavaScript and for search engines. An inline script in `<head>` hides it before first paint while the intro animation runs, with a timeout that shows it anyway if the script never loads.
 
@@ -55,10 +56,10 @@ The hero name stays in `index.html` so it shows without JavaScript and for searc
 
 ## Integrations
 
-| Integration | Purpose | Auth and validation | Failure behaviour |
-| --- | --- | --- | --- |
-| EmailJS | Sends the contact form | Public ids in `content/contact.js`; fields validated in the page before sending | The SDK loads on first send; on load or send failure the form shows the email address instead |
-| Google Fonts | Bricolage Grotesque and Onest | None | Falls back to the system sans-serif |
+| Integration  | Purpose                       | Auth and validation                                                             | Failure behaviour                                                                             |
+| ------------ | ----------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| EmailJS      | Sends the contact form        | Public ids in `content/contact.js`; fields validated in the page before sending | The SDK loads on first send; on load or send failure the form shows the email address instead |
+| Google Fonts | Bricolage Grotesque and Onest | None                                                                            | Falls back to the system sans-serif                                                           |
 
 ## Trust boundaries
 
