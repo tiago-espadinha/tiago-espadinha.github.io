@@ -15,7 +15,8 @@
 }
 
 .btn:hover {
-  border-color: var(--color-chalk);
+  border-color: var(--color-amber);
+  color: var(--color-amber);
 }
 
 .btn:active {
