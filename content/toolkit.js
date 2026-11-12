@@ -9,7 +9,16 @@ export const toolkit = [
   },
   {
     label: "Shipped with",
-    items: ["Next.js", "React Native", "Expo", "Redux", "GraphQL", "REST", "Node", "Jest"],
+    items: [
+      "Next.js",
+      "React Native",
+      "Expo",
+      "Redux",
+      "GraphQL",
+      "REST",
+      "Node",
+      "Jest",
+    ],
   },
   {
     label: "Side projects",

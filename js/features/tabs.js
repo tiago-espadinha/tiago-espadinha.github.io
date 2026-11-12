@@ -10,14 +10,16 @@ const EASE_OUT = "cubic-bezier(0.2, 0.7, 0.2, 1)";
 export function initTabs() {
   document.querySelectorAll('[role="tablist"]').forEach((list) => {
     const tabs = [...list.querySelectorAll('[role="tab"]')];
-    const panelOf = (tab) => document.getElementById(tab.getAttribute("aria-controls"));
+    const panelOf = (tab) =>
+      document.getElementById(tab.getAttribute("aria-controls"));
 
     const thumb = document.createElement("span");
     thumb.className = "toggle-thumb";
     thumb.setAttribute("aria-hidden", "true");
     list.prepend(thumb);
 
-    let current = tabs.find((t) => t.getAttribute("aria-selected") === "true") ?? tabs[0];
+    let current =
+      tabs.find((t) => t.getAttribute("aria-selected") === "true") ?? tabs[0];
     let swap = null; // the panel change in progress, if any
 
     function placeThumb(animate) {
@@ -109,10 +111,13 @@ function swapPanels(from, to) {
       const endHeight = box.offsetHeight;
 
       running.push(
-        box.animate([{ height: `${startHeight}px` }, { height: `${endHeight}px` }], {
-          duration: 380,
-          easing: EASE_OUT,
-        }),
+        box.animate(
+          [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
+          {
+            duration: 380,
+            easing: EASE_OUT,
+          },
+        ),
       );
       [...to.children].forEach((child, i) => {
         running.push(
@@ -121,7 +126,12 @@ function swapPanels(from, to) {
               { opacity: 0, transform: "translateY(10px)" },
               { opacity: 1, transform: "none" },
             ],
-            { duration: 420, delay: i * 60, easing: EASE_OUT, fill: "backwards" },
+            {
+              duration: 420,
+              delay: i * 60,
+              easing: EASE_OUT,
+              fill: "backwards",
+            },
           ),
         );
       });

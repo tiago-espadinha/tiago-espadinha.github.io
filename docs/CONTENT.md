@@ -4,13 +4,13 @@ Everything the page says lives in two places: `content/` for the site and `cv/` 
 
 ## Site content
 
-| File | What it holds |
-| --- | --- |
-| `content/projects.js` | Selected work: one entry per project, shown in array order |
-| `content/experience.js` | `work` and `education`, the two tabs of the Experience section |
-| `content/toolkit.js` | The Toolkit list beside Experience |
-| `content/contact.js` | Email, profile links, the contact form ids and the CV path |
-| `index.html` | The hero name and lede, the page title and the share preview text |
+| File                    | What it holds                                                     |
+| ----------------------- | ----------------------------------------------------------------- |
+| `content/projects.js`   | Selected work: one entry per project, shown in array order        |
+| `content/experience.js` | `work` and `education`, the two tabs of the Experience section    |
+| `content/toolkit.js`    | The Toolkit list beside Experience                                |
+| `content/contact.js`    | Email, profile links, the contact form ids and the CV path        |
+| `index.html`            | The hero name and lede, the page title and the share preview text |
 
 Each file starts with a comment that describes its fields.
 

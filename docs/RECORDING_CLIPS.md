@@ -4,13 +4,13 @@ Each project card on the page can play a short muted clip of the project in use.
 
 ## What a clip has to be
 
-| | Target | Why |
-|---|---|---|
-| Size | 1920×1200 | The clip viewer is up to 1100 CSS px wide, about 2200 real pixels on a retina screen. Anything much smaller looks soft when expanded. |
-| Shape | 16:10 | The shape of the slots on the page. Other shapes get cropped in the card and letterboxed in the viewer. |
-| Length | 12 to 20 s | One task, start to finish. It loops, so it should not end on a loading state. |
-| Format | H.264 MP4, `yuv420p`, `+faststart`, no audio | Plays in every browser, and can start before the whole file has arrived. |
-| File size | about 2 to 4 MB | The page sets `preload="none"`, so a clip downloads only when it starts playing. |
+|           | Target                                       | Why                                                                                                                                   |
+| --------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Size      | 1920×1200                                    | The clip viewer is up to 1100 CSS px wide, about 2200 real pixels on a retina screen. Anything much smaller looks soft when expanded. |
+| Shape     | 16:10                                        | The shape of the slots on the page. Other shapes get cropped in the card and letterboxed in the viewer.                               |
+| Length    | 12 to 20 s                                   | One task, start to finish. It loops, so it should not end on a loading state.                                                         |
+| Format    | H.264 MP4, `yuv420p`, `+faststart`, no audio | Plays in every browser, and can start before the whole file has arrived.                                                              |
+| File size | about 2 to 4 MB                              | The page sets `preload="none"`, so a clip downloads only when it starts playing.                                                      |
 
 The screenshots next to each clip (`*.webp`) are its poster, the still shown before it plays. A clip should start on roughly the same view as its poster, in the same theme, so the switch is not jarring.
 
@@ -68,29 +68,29 @@ nova: {
 },
 ```
 
-| Field | Meaning |
-|---|---|
-| `url` | Where recording starts. The page loads and settles (network idle plus 0.8 s) before the first frame. |
-| `viewport` | The window size in CSS pixels. This decides which layout the site uses (desktop, tablet, phone). |
-| `scale` | Device pixel ratio. `viewport × scale` is the size of the captured frames. |
-| `colorScheme` | Optional, `"dark"` by default. Set it to match the project's screenshots (TedDex uses `"light"`). |
-| `crf` | Optional, overrides the global `CRF` for this clip (SimLab uses 23, see [Tuning](#tuning-quality-and-size)). |
-| `run(s)` | The steps, using the helpers below. |
+| Field         | Meaning                                                                                                      |
+| ------------- | ------------------------------------------------------------------------------------------------------------ |
+| `url`         | Where recording starts. The page loads and settles (network idle plus 0.8 s) before the first frame.         |
+| `viewport`    | The window size in CSS pixels. This decides which layout the site uses (desktop, tablet, phone).             |
+| `scale`       | Device pixel ratio. `viewport × scale` is the size of the captured frames.                                   |
+| `colorScheme` | Optional, `"dark"` by default. Set it to match the project's screenshots (TedDex uses `"light"`).            |
+| `crf`         | Optional, overrides the global `CRF` for this clip (SimLab uses 23, see [Tuning](#tuning-quality-and-size)). |
+| `run(s)`      | The steps, using the helpers below.                                                                          |
 
 ### Helpers
 
-| Helper | What it does |
-|---|---|
-| `s.glide(x, y, ms = 650)` | Moves the pointer to a point with an ease-in-out curve. Timed by the clock, so it takes `ms` even on a slow page. |
-| `s.click(target)` | Waits for the element, scrolls it into view, glides to it and clicks. `target` is a CSS selector or a Playwright locator. |
-| `s.click(null, x, y)` | Glides to a point and clicks there (for a canvas). |
-| `s.type(text)` | Types one key at a time, 110 to 180 ms apart, like a person. |
-| `s.scroll(dy, ms = 900)` | Wheels by `dy` pixels with easing (negative scrolls up). Scrolls whatever is under the pointer, so glide there first. |
-| `s.drag([x1, y1], [x2, y2], ms)` | Presses at the first point, glides to the second, releases. |
-| `s.hold(ms)` | Waits while recording, to let the viewer take in a screen. |
-| `s.visit(url)` | Loads another page with the load cut from the clip. Used by SimLab to move between simulations. |
-| `s.cut(fn, keep)` | Runs `fn` (a slow wait) with all but its first `keep` ms cut. `loaded()` uses it to show Nova's spinner for a moment and skip the rest. |
-| `s.page` | The Playwright page, for anything else (`s.page.keyboard.press("Enter")`, `s.page.getByRole(...)`). |
+| Helper                           | What it does                                                                                                                            |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `s.glide(x, y, ms = 650)`        | Moves the pointer to a point with an ease-in-out curve. Timed by the clock, so it takes `ms` even on a slow page.                       |
+| `s.click(target)`                | Waits for the element, scrolls it into view, glides to it and clicks. `target` is a CSS selector or a Playwright locator.               |
+| `s.click(null, x, y)`            | Glides to a point and clicks there (for a canvas).                                                                                      |
+| `s.type(text)`                   | Types one key at a time, 110 to 180 ms apart, like a person.                                                                            |
+| `s.scroll(dy, ms = 900)`         | Wheels by `dy` pixels with easing (negative scrolls up). Scrolls whatever is under the pointer, so glide there first.                   |
+| `s.drag([x1, y1], [x2, y2], ms)` | Presses at the first point, glides to the second, releases.                                                                             |
+| `s.hold(ms)`                     | Waits while recording, to let the viewer take in a screen.                                                                              |
+| `s.visit(url)`                   | Loads another page with the load cut from the clip. Used by SimLab to move between simulations.                                         |
+| `s.cut(fn, keep)`                | Runs `fn` (a slow wait) with all but its first `keep` ms cut. `loaded()` uses it to show Nova's spinner for a moment and skip the rest. |
+| `s.page`                         | The Playwright page, for anything else (`s.page.keyboard.press("Enter")`, `s.page.getByRole(...)`).                                     |
 
 Prefer selectors a redesign is unlikely to break: roles and names (`getByRole("button", { name: "Moves" })`), labels, placeholders, `href`s. Pick coordinates (for canvases) by taking a screenshot at the scene's viewport.
 
@@ -109,11 +109,11 @@ TedDex is a phone app, so its scene uses a phone viewport (`384×640`) at `scale
 
 `CRF` (Constant Rate Factor) at the top of the script sets the quality of the H.264 encode. Lower means sharper and larger; each step of 6 roughly doubles or halves the file.
 
-| CRF | Use |
-|---|---|
-| 18 | Near lossless. Only for very static UIs. |
-| 20 | The default. Text stays crisp. |
-| 23 | Full-frame motion (simulations, video), where 20 doubles the file without a visible gain. |
+| CRF | Use                                                                                       |
+| --- | ----------------------------------------------------------------------------------------- |
+| 18  | Near lossless. Only for very static UIs.                                                  |
+| 20  | The default. Text stays crisp.                                                            |
+| 23  | Full-frame motion (simulations, video), where 20 doubles the file without a visible gain. |
 
 `SIZE` sets the output size, and `quality: 92` in `startRecorder` sets the JPEG quality of the captured frames. Neither should need changing.
 
@@ -147,15 +147,15 @@ ffmpeg -i assets/projects/nova.mp4 -vf "fps=1/2,scale=400:-1,tile=5x3" -frames:v
 
 ## Troubleshooting
 
-| Problem | Likely cause and fix |
-|---|---|
-| `Cannot find package 'playwright'` | Run `npm install --no-save playwright` in the repo root. |
-| `Executable doesn't exist` | Run `npx playwright install chromium`, or point `CHROME` at an installed Chrome. |
-| A step times out after 15 s | The site changed and the selector no longer matches. Open the site at the scene's viewport and update the selector. |
-| `no frames were captured` | The page never painted. Check that the URL loads in a normal browser. |
-| The clip is much longer than its steps add up to | A wait is not wrapped in `cut()` or `visit()`, or the site was slow. Wrap the wait, or record again. |
-| The clip shows a white flash between pages | Load the new page with `s.visit(url)`, not `s.page.goto(url)`. |
-| A canvas runs below 60 fps in the clip | Headless Chrome renders on the CPU. The recorder keeps every frame it gets, so motion is still smooth, but a lighter scene (fewer bodies, a smaller grid) helps. |
+| Problem                                          | Likely cause and fix                                                                                                                                             |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Cannot find package 'playwright'`               | Run `npm install --no-save playwright` in the repo root.                                                                                                         |
+| `Executable doesn't exist`                       | Run `npx playwright install chromium`, or point `CHROME` at an installed Chrome.                                                                                 |
+| A step times out after 15 s                      | The site changed and the selector no longer matches. Open the site at the scene's viewport and update the selector.                                              |
+| `no frames were captured`                        | The page never painted. Check that the URL loads in a normal browser.                                                                                            |
+| The clip is much longer than its steps add up to | A wait is not wrapped in `cut()` or `visit()`, or the site was slow. Wrap the wait, or record again.                                                             |
+| The clip shows a white flash between pages       | Load the new page with `s.visit(url)`, not `s.page.goto(url)`.                                                                                                   |
+| A canvas runs below 60 fps in the clip           | Headless Chrome renders on the CPU. The recorder keeps every frame it gets, so motion is still smooth, but a lighter scene (fewer bodies, a smaller grid) helps. |
 
 ## Recording by hand
 

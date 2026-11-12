@@ -29,7 +29,10 @@
       // script never runs.
       if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
         document.documentElement.classList.add("intro", "intro-pending");
-        setTimeout(() => document.documentElement.classList.remove("intro-pending"), 4000);
+        setTimeout(
+          () => document.documentElement.classList.remove("intro-pending"),
+          4000,
+        );
       }
     </script>
   </head>
@@ -39,8 +42,17 @@
     <header class="hero" id="top">
       <nav class="nav" aria-label="Main">
         <div class="container">
-          <a href="#top" class="nav-brand" aria-label="Tiago Simões, back to top">
-            <img src="assets/icons/logo_lettering.svg" alt="" width="32" height="32" />
+          <a
+            href="#top"
+            class="nav-brand"
+            aria-label="Tiago Simões, back to top"
+          >
+            <img
+              src="assets/icons/logo_lettering.svg"
+              alt=""
+              width="32"
+              height="32"
+            />
             <span>Tiago Simões</span>
           </a>
           <ul class="nav-links">
@@ -60,9 +72,15 @@
           with React and Angular, and working my way down the stack.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" id="work-link" href="#work"><span class="btn-label">See my work</span></a>
-          <a class="btn" id="cv-link" href="#" hidden><span class="btn-label">Download CV</span></a>
-          <div class="icon-links" id="hero-links"><!-- Rendered dynamically --></div>
+          <a class="btn btn-primary" id="work-link" href="#work"
+            ><span class="btn-label">See my work</span></a
+          >
+          <a class="btn" id="cv-link" href="#" hidden
+            ><span class="btn-label">Download CV</span></a
+          >
+          <div class="icon-links" id="hero-links">
+            <!-- Rendered dynamically -->
+          </div>
         </div>
       </div>
 
@@ -80,13 +98,43 @@
             <div class="heading-row">
               <h2>Experience</h2>
               <div class="toggle" role="tablist" aria-label="Work or education">
-                <button type="button" role="tab" id="tab-work" aria-selected="true" aria-controls="experience-list">Work</button>
-                <button type="button" role="tab" id="tab-education" aria-selected="false" aria-controls="education-list" tabindex="-1">Education</button>
+                <button
+                  type="button"
+                  role="tab"
+                  id="tab-work"
+                  aria-selected="true"
+                  aria-controls="experience-list"
+                >
+                  Work
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  id="tab-education"
+                  aria-selected="false"
+                  aria-controls="education-list"
+                  tabindex="-1"
+                >
+                  Education
+                </button>
               </div>
             </div>
             <div class="tab-panels">
-              <div id="experience-list" role="tabpanel" aria-labelledby="tab-work"><!-- Rendered dynamically --></div>
-              <div id="education-list" role="tabpanel" aria-labelledby="tab-education" hidden><!-- Rendered dynamically --></div>
+              <div
+                id="experience-list"
+                role="tabpanel"
+                aria-labelledby="tab-work"
+              >
+                <!-- Rendered dynamically -->
+              </div>
+              <div
+                id="education-list"
+                role="tabpanel"
+                aria-labelledby="tab-education"
+                hidden
+              >
+                <!-- Rendered dynamically -->
+              </div>
             </div>
           </div>
           <div>
@@ -115,29 +163,53 @@
             <div>
               <h2>Get in touch</h2>
               <p class="contact-note" id="contact-note"></p>
-              <ul class="channels" id="contact-channels"><!-- Rendered dynamically --></ul>
+              <ul class="channels" id="contact-channels">
+                <!-- Rendered dynamically -->
+              </ul>
             </div>
 
             <form id="contact-form" class="form" novalidate>
               <div class="form-pair">
                 <div class="field">
                   <label for="name">Name</label>
-                  <input type="text" id="name" name="name" autocomplete="name" aria-describedby="name-error" required />
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    autocomplete="name"
+                    aria-describedby="name-error"
+                    required
+                  />
                   <span class="field-error" id="name-error"></span>
                 </div>
                 <div class="field">
                   <label for="email">Email</label>
-                  <input type="email" id="email" name="email" autocomplete="email" aria-describedby="email-error" required />
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    autocomplete="email"
+                    aria-describedby="email-error"
+                    required
+                  />
                   <span class="field-error" id="email-error"></span>
                 </div>
               </div>
               <div class="field">
                 <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5" aria-describedby="message-error" required></textarea>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  aria-describedby="message-error"
+                  required
+                ></textarea>
                 <span class="field-error" id="message-error"></span>
               </div>
               <div class="form-foot">
-                <button type="submit" class="btn btn-primary">Send message</button>
+                <button type="submit" class="btn btn-primary">
+                  Send message
+                </button>
                 <p class="form-status" id="form-status" role="status"></p>
               </div>
             </form>

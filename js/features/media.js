@@ -41,7 +41,8 @@ function setupClip(shot, video) {
   shot.addEventListener("pointerenter", autoplay);
 
   // The whole shot is one button that opens the clip in the overlay.
-  const title = shot.closest(".project")?.querySelector("h3")?.textContent ?? "";
+  const title =
+    shot.closest(".project")?.querySelector("h3")?.textContent ?? "";
   const expand = document.createElement("button");
   expand.type = "button";
   expand.className = "shot-expand";
@@ -128,10 +129,14 @@ function getViewer() {
     flash.replaceChildren(icon(name));
     flash.classList.add("is-shown");
     clearTimeout(flashTimer);
-    if (!hold) flashTimer = setTimeout(() => flash.classList.remove("is-shown"), 700);
+    if (!hold)
+      flashTimer = setTimeout(() => flash.classList.remove("is-shown"), 700);
   };
   const syncToggle = () => {
-    toggle.setAttribute("aria-label", video.paused ? "Play clip" : "Pause clip");
+    toggle.setAttribute(
+      "aria-label",
+      video.paused ? "Play clip" : "Pause clip",
+    );
   };
   toggle.addEventListener("click", () => {
     if (video.paused) {
@@ -149,7 +154,10 @@ function getViewer() {
   let scrubbing = false;
   let frame;
   const paint = () => {
-    progress.style.setProperty("--p", `${(progress.value / (progress.max || 1)) * 100}%`);
+    progress.style.setProperty(
+      "--p",
+      `${(progress.value / (progress.max || 1)) * 100}%`,
+    );
   };
   const follow = () => {
     if (!scrubbing && video.duration) {
@@ -170,10 +178,14 @@ function getViewer() {
   });
   // Arrow keys step a twentieth of the clip rather than a sliver of a second.
   progress.addEventListener("keydown", (e) => {
-    const dir = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key];
+    const dir = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[
+      e.key
+    ];
     if (!dir || !video.duration) return;
     e.preventDefault();
-    const t = (video.currentTime + (dir * video.duration) / 20 + video.duration) % video.duration;
+    const t =
+      (video.currentTime + (dir * video.duration) / 20 + video.duration) %
+      video.duration;
     video.currentTime = t;
     progress.value = t;
     paint();
@@ -215,7 +227,10 @@ function openViewer(shot, inlineVideo, title) {
   dialog.setAttribute("aria-label", `${title} clip`);
   dialog.querySelector(".clip-viewer-title").textContent = title;
   video.src = inlineVideo.currentSrc || inlineVideo.src;
-  video.setAttribute("aria-label", inlineVideo.getAttribute("aria-label") ?? "");
+  video.setAttribute(
+    "aria-label",
+    inlineVideo.getAttribute("aria-label") ?? "",
+  );
 
   // Reuse the project's own live and code links.
   const links = dialog.querySelector(".clip-viewer-links");
@@ -277,7 +292,10 @@ function createSwing(dialog) {
     const from = shot.getBoundingClientRect();
     const dx = from.left + from.width / 2 - (to.left + to.width / 2);
     const dy = from.top + from.height / 2 - (to.top + to.height / 2);
-    const tilt = Math.max(-MAX_TILT, Math.min(MAX_TILT, (dx / window.innerWidth) * 2.5 * MAX_TILT));
+    const tilt = Math.max(
+      -MAX_TILT,
+      Math.min(MAX_TILT, (dx / window.innerWidth) * 2.5 * MAX_TILT),
+    );
     panel.style.transformOrigin = `${to.left - box.left + to.width / 2}px ${to.top - box.top + to.height / 2}px`;
     geo = {
       scale: Math.min(from.width / to.width, from.height / to.height),
@@ -376,7 +394,8 @@ function createSwing(dialog) {
     if (!dialog.open || leaving) return;
     leaving = true;
     // The page clip carries on from where the overlay was.
-    if (inlineVideo && video.duration) inlineVideo.currentTime = video.currentTime;
+    if (inlineVideo && video.duration)
+      inlineVideo.currentTime = video.currentTime;
     if (reducedMotion.matches || !geo) {
       dialog.close();
       return;
@@ -429,8 +448,14 @@ function trackPointer(shot) {
   shot.addEventListener("pointermove", (e) => {
     if (e.pointerType !== "mouse") return;
     const rect = shot.getBoundingClientRect();
-    shot.style.setProperty("--px", ((e.clientX - rect.left) / rect.width).toFixed(3));
-    shot.style.setProperty("--py", ((e.clientY - rect.top) / rect.height).toFixed(3));
+    shot.style.setProperty(
+      "--px",
+      ((e.clientX - rect.left) / rect.width).toFixed(3),
+    );
+    shot.style.setProperty(
+      "--py",
+      ((e.clientY - rect.top) / rect.height).toFixed(3),
+    );
   });
   // Back to centre, so the shot settles flat again.
   shot.addEventListener("pointerleave", () => {
@@ -462,8 +487,14 @@ function trackAmbientPointer(shots) {
       if (rect.bottom < 0 || rect.top > window.innerHeight) return; // off screen
       const dx = cursor.x - (rect.left + rect.width / 2);
       const dy = cursor.y - (rect.top + rect.height / 2);
-      shot.style.setProperty("--ax", clamp(dx / (window.innerWidth / 2)).toFixed(3));
-      shot.style.setProperty("--ay", clamp(dy / (window.innerHeight / 2)).toFixed(3));
+      shot.style.setProperty(
+        "--ax",
+        clamp(dx / (window.innerWidth / 2)).toFixed(3),
+      );
+      shot.style.setProperty(
+        "--ay",
+        clamp(dy / (window.innerHeight / 2)).toFixed(3),
+      );
     });
   };
 

@@ -26,7 +26,10 @@ export const projects = [
     clip: "assets/projects/nova.mp4",
     layout: "wide",
     images: [
-      { src: "assets/projects/nova.webp", alt: "Nova Stream home with a featured title and a trending shelf" },
+      {
+        src: "assets/projects/nova.webp",
+        alt: "Nova Stream home with a featured title and a trending shelf",
+      },
     ],
     liveUrl: "https://nova-stream-theta.vercel.app/",
     liveLabel: "Open the app",
@@ -42,7 +45,10 @@ export const projects = [
     clip: "assets/projects/simlab.mp4",
     layout: "wide",
     images: [
-      { src: "assets/projects/simlab.webp", alt: "SimLab double pendulum tracing a chaotic path" },
+      {
+        src: "assets/projects/simlab.webp",
+        alt: "SimLab double pendulum tracing a chaotic path",
+      },
     ],
     liveUrl: "https://simlab.vercel.app/",
     liveLabel: "Open the lab",
@@ -51,14 +57,18 @@ export const projects = [
   {
     id: "medflow",
     title: "MedFlow",
-    summary: "A hospital operations dashboard with six roles and four languages.",
+    summary:
+      "A hospital operations dashboard with six roles and four languages.",
     detail:
       "Patients, admissions, lab orders, billing and pharmacy, all driven by one resource configuration. Reports export to CSV and print cleanly.",
     stack: ["React 18", "TypeScript", "React Router", "Framer Motion"],
     clip: "assets/projects/medflow.mp4",
     layout: "wide",
     images: [
-      { src: "assets/projects/medflow.webp", alt: "MedFlow dashboard with hospital KPIs and occupancy charts" },
+      {
+        src: "assets/projects/medflow.webp",
+        alt: "MedFlow dashboard with hospital KPIs and occupancy charts",
+      },
     ],
     liveUrl: "https://med-flow-amber.vercel.app",
     liveLabel: "Open the app",
@@ -67,15 +77,22 @@ export const projects = [
   {
     id: "teddex",
     title: "TedDex",
-    summary: "An installable Pokédex and team builder that works in airplane mode.",
+    summary:
+      "An installable Pokédex and team builder that works in airplane mode.",
     detail:
       "1,025 species, their moves, evolutions and locations, served as static data with no server. A build pipeline prepares the data and a service worker caches it.",
     stack: ["React 19", "TypeScript", "IndexedDB", "Workbox", "500+ tests"],
     clip: "assets/projects/teddex.mp4",
     layout: "phones",
     images: [
-      { src: "assets/projects/teddex-dex.webp", alt: "TedDex grid of species cards tinted by type" },
-      { src: "assets/projects/teddex-detail.webp", alt: "TedDex species page showing Charizard's base stats" },
+      {
+        src: "assets/projects/teddex-dex.webp",
+        alt: "TedDex grid of species cards tinted by type",
+      },
+      {
+        src: "assets/projects/teddex-detail.webp",
+        alt: "TedDex species page showing Charizard's base stats",
+      },
     ],
     liveUrl: "https://teddex.vercel.app/",
     liveLabel: "Open the app",

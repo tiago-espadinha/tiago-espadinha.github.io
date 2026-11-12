@@ -17,7 +17,12 @@ function renderChannels(contact) {
   if (!channels) return;
 
   const rows = [
-    { label: "Email", value: contact.email, icon: "mail", url: `mailto:${contact.email}` },
+    {
+      label: "Email",
+      value: contact.email,
+      icon: "mail",
+      url: `mailto:${contact.email}`,
+    },
     ...contact.links.map((link) => ({
       label: link.label,
       value: link.handle,
@@ -27,7 +32,13 @@ function renderChannels(contact) {
     })),
   ];
   if (contact.cv) {
-    rows.push({ label: "CV", value: "Download the PDF", icon: "download", url: contact.cv, download: true });
+    rows.push({
+      label: "CV",
+      value: "Download the PDF",
+      icon: "download",
+      url: contact.cv,
+      download: true,
+    });
   }
 
   rows.forEach((row) => {
@@ -38,7 +49,10 @@ function renderChannels(contact) {
     const badge = el("span", "channel-icon");
     badge.appendChild(icon(row.icon));
     const text = el("span", "channel-text");
-    text.append(el("span", "channel-label", row.label), el("span", "channel-value", row.value));
+    text.append(
+      el("span", "channel-label", row.label),
+      el("span", "channel-value", row.value),
+    );
     const arrow = icon(row.download ? "download" : "arrowUpRight");
     arrow.classList.add("channel-arrow");
 

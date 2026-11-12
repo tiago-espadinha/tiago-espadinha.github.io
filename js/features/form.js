@@ -11,8 +11,7 @@ const SDK_URL =
 
 const RULES = {
   name: (v) => (v ? "" : "Please add your name."),
-  email: (v) =>
-    /^\S+@\S+\.\S+$/.test(v) ? "" : "Please enter a valid email.",
+  email: (v) => (/^\S+@\S+\.\S+$/.test(v) ? "" : "Please enter a valid email."),
   message: (v) => (v ? "" : "Please write a message."),
 };
 

@@ -22,6 +22,9 @@ export function renderToolkit(toolkit) {
   if (!list) return;
 
   toolkit.forEach((group) => {
-    list.append(el("dt", "", group.label), el("dd", "", group.items.join(", ")));
+    list.append(
+      el("dt", "", group.label),
+      el("dd", "", group.items.join(", ")),
+    );
   });
 }

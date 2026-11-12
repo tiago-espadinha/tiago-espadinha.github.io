@@ -134,7 +134,9 @@
 
 .clip-viewer-progress::-webkit-slider-runnable-track {
   height: 3px;
-  background: linear-gradient(var(--color-amber), var(--color-amber)) no-repeat 0 0 / var(--p) 100%,
+  background:
+    linear-gradient(var(--color-amber), var(--color-amber)) no-repeat 0 0 /
+      var(--p) 100%,
     var(--color-line);
   transition: height 0.15s ease;
 }

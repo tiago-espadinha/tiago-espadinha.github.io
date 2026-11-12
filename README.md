@@ -2,8 +2,8 @@
 
 My developer portfolio: a single page in plain HTML, CSS and JavaScript, with no framework and no build step, plus the LaTeX source of my CV.
 
-| Hero | Experience | Selected work | Phone |
-| --- | --- | --- | --- |
+| Hero                                                                          | Experience                                                                 | Selected work                                                                   | Phone                                             |
+| ----------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------- |
 | ![Hero with the name over a flock of paper-plane boids](docs/images/hero.png) | ![Experience timeline beside the toolkit list](docs/images/experience.png) | ![TedDex project row with phone screenshots and links](docs/images/project.png) | ![The hero at phone width](docs/images/phone.png) |
 
 ## Features
@@ -36,11 +36,11 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-| Command | What it does |
-| --- | --- |
-| `make -C cv` | Build the English and Portuguese CVs and copy them to `assets/` |
-| `make -C cv clean` | Remove the CV build files |
-| `node scripts/record-clips.mjs [name...]` | Re-record the project clips from the live sites |
+| Command                                   | What it does                                                    |
+| ----------------------------------------- | --------------------------------------------------------------- |
+| `make -C cv`                              | Build the English and Portuguese CVs and copy them to `assets/` |
+| `make -C cv clean`                        | Remove the CV build files                                       |
+| `node scripts/record-clips.mjs [name...]` | Re-record the project clips from the live sites                 |
 
 ## Documentation
 

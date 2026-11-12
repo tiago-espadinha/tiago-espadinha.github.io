@@ -143,8 +143,14 @@ export function initFlock(canvas) {
     let expired = false;
 
     for (const b of boids) {
-      let sepX = 0, sepY = 0, aliX = 0, aliY = 0, cohX = 0, cohY = 0;
-      let sepN = 0, flockN = 0;
+      let sepX = 0,
+        sepY = 0,
+        aliX = 0,
+        aliY = 0,
+        cohX = 0,
+        cohY = 0;
+      let sepN = 0,
+        flockN = 0;
 
       neighbours(grid, b, near);
       for (let i = 0; i < near.length; i++) {
@@ -249,7 +255,8 @@ export function initFlock(canvas) {
     ctx.clearRect(0, 0, W, H);
     const sz = CONFIG.size;
     for (const b of boids) {
-      const fade = b.life === undefined ? 1 : Math.min(1, b.life / CONFIG.burstFade);
+      const fade =
+        b.life === undefined ? 1 : Math.min(1, b.life / CONFIG.burstFade);
       ctx.globalAlpha = 0.85 * fade;
       ctx.save();
       ctx.translate(b.x, b.y);

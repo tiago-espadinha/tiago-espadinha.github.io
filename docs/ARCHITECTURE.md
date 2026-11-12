@@ -55,10 +55,10 @@ The hero name stays in `index.html` so it shows without JavaScript and for searc
 
 ## Integrations
 
-| Integration | Purpose | Auth and validation | Failure behaviour |
-| --- | --- | --- | --- |
-| EmailJS | Sends the contact form | Public ids in `content/contact.js`; fields validated in the page before sending | The SDK loads on first send; on load or send failure the form shows the email address instead |
-| Google Fonts | Bricolage Grotesque and Onest | None | Falls back to the system sans-serif |
+| Integration  | Purpose                       | Auth and validation                                                             | Failure behaviour                                                                             |
+| ------------ | ----------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| EmailJS      | Sends the contact form        | Public ids in `content/contact.js`; fields validated in the page before sending | The SDK loads on first send; on load or send failure the form shows the email address instead |
+| Google Fonts | Bricolage Grotesque and Onest | None                                                                            | Falls back to the system sans-serif                                                           |
 
 ## Trust boundaries
 
