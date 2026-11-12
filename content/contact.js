@@ -6,7 +6,8 @@
  * email   Shown first in the list, and the fallback when the form fails.
  * form    EmailJS ids for the contact form (public by design). Set to null
  *         to hide the form and keep only the list.
- * cv      Path to the CV PDF. Set to null to hide the Download CV buttons.
+ * cv      Path to the CV PDF, built from cv/ (see docs/CONTENT.md). Set to null
+ *         to hide the Download CV buttons.
  * links   Profiles, in display order: { label, handle, icon, url }. `icon`
  *         is a name from js/lib/icons.js.
  */
