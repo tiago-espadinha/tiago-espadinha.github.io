@@ -1,5 +1,6 @@
 import * as content from "../content/index.js";
 
+import { renderProjects } from "./render/projects.js";
 import { renderTimeline, renderToolkit } from "./render/experience.js";
 import { renderChrome } from "./render/chrome.js";
 
@@ -10,6 +11,7 @@ import { initTabs } from "./features/tabs.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Build the DOM from content/.
+  renderProjects(content.projects);
   renderTimeline("experience-list", content.work);
   renderTimeline("education-list", content.education);
   renderToolkit(content.toolkit);
