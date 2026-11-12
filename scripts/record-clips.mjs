@@ -27,7 +27,10 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
 const OUT_DIR = resolve(import.meta.dirname, "../assets/projects");
-const SIZE = { width: 1920, height: 1200 };
+const SIZE = {
+  width: 1920,
+  height: 1200,
+};
 const BACKDROP = "#20244a"; // --color-ink-raised, around the phone-sized clip
 const CRF = 20; // lower is sharper and larger; 18 to 23 is the useful range
 
@@ -35,7 +38,10 @@ const scenes = {
   teddex: {
     url: "https://teddex.vercel.app/",
     // A phone viewport at 3x, placed in the middle of the 16:10 frame.
-    viewport: { width: 384, height: 640 },
+    viewport: {
+      width: 384,
+      height: 640,
+    },
     scale: 3,
     colorScheme: "light", // matches its screenshots
     async run(s) {
@@ -51,8 +57,15 @@ const scenes = {
       await s.hold(400);
       await s.click(
         s.page
-          .getByRole("tab", { name: "Moves" })
-          .or(s.page.getByRole("button", { name: "Moves", exact: true }))
+          .getByRole("tab", {
+            name: "Moves",
+          })
+          .or(
+            s.page.getByRole("button", {
+              name: "Moves",
+              exact: true,
+            }),
+          )
           .first(),
       );
       await s.hold(900);
@@ -63,7 +76,10 @@ const scenes = {
 
   nova: {
     url: "https://nova-stream-theta.vercel.app/",
-    viewport: { width: 1280, height: 800 },
+    viewport: {
+      width: 1280,
+      height: 800,
+    },
     scale: 1.5,
     async run(s) {
       await s.click("#site-search");
@@ -73,7 +89,12 @@ const scenes = {
       await s.hold(1400);
       for (const tab of ["Movies", "Books", "Music"]) {
         await s.click(
-          s.page.getByRole("button", { name: tab, exact: true }).first(),
+          s.page
+            .getByRole("button", {
+              name: tab,
+              exact: true,
+            })
+            .first(),
         );
         await loaded(s);
         await s.hold(1600);
@@ -86,7 +107,10 @@ const scenes = {
 
   medflow: {
     url: "https://med-flow-amber.vercel.app/",
-    viewport: { width: 1280, height: 800 },
+    viewport: {
+      width: 1280,
+      height: 800,
+    },
     scale: 1.5,
     async run(s) {
       await s.hold(500);
@@ -95,11 +119,21 @@ const scenes = {
       await s.click('input[placeholder="e.g. Sam Rivera"]');
       await s.type("Sam Rivera");
       await s.hold(300);
-      await s.click(s.page.getByRole("button", { name: "Enter workspace" }));
+      await s.click(
+        s.page.getByRole("button", {
+          name: "Enter workspace",
+        }),
+      );
       await s.hold(2400);
       await s.glide(760, 330);
       await s.hold(1200);
-      await s.click(s.page.getByRole("link", { name: "Admissions" }).first());
+      await s.click(
+        s.page
+          .getByRole("link", {
+            name: "Admissions",
+          })
+          .first(),
+      );
       await s.hold(1500);
       await s.glide(900, 520, 900);
       await s.glide(900, 600, 600);
@@ -109,7 +143,10 @@ const scenes = {
 
   simlab: {
     url: "https://simlab.vercel.app/cloth/",
-    viewport: { width: 1280, height: 800 },
+    viewport: {
+      width: 1280,
+      height: 800,
+    },
     scale: 1.5,
     crf: 23, // busy full-frame motion; 20 would double the file for little gain
     async run(s) {
@@ -139,7 +176,10 @@ async function loaded(s) {
     await s.page
       .getByText(/Searching live databases/i)
       .first()
-      .waitFor({ state: "hidden", timeout: 20000 })
+      .waitFor({
+        state: "hidden",
+        timeout: 20000,
+      })
       .catch(() => {});
     await s.hold(400); // let the cards fade in
   }, 350);
@@ -184,7 +224,10 @@ async function startRecorder(page, dir, maxSize) {
     if (paused) return;
     const file = join(dir, `f${String(n++).padStart(5, "0")}.jpg`);
     writeFileSync(file, Buffer.from(data, "base64"));
-    frames.push({ file, t: metadata.timestamp - pausedFor });
+    frames.push({
+      file,
+      t: metadata.timestamp - pausedFor,
+    });
   });
 
   const start = () =>
@@ -300,7 +343,10 @@ function makeStage(page, rec) {
       if (target) {
         const loc =
           typeof target === "string" ? page.locator(target).first() : target;
-        await loc.waitFor({ state: "visible", timeout: 15000 });
+        await loc.waitFor({
+          state: "visible",
+          timeout: 15000,
+        });
         await loc.scrollIntoViewIfNeeded();
         const box = await loc.boundingBox();
         px = box.x + Math.min(box.width / 2, 60);
@@ -345,7 +391,9 @@ function makeStage(page, rec) {
     /** Load another page with the load itself cut from the clip. */
     async visit(url) {
       rec.pause();
-      await page.goto(url, { waitUntil: "networkidle" });
+      await page.goto(url, {
+        waitUntil: "networkidle",
+      });
       await page.mouse.move(x, y); // put the dot back where it was
       await wait(400);
       await rec.resume();
@@ -367,7 +415,11 @@ if (unknown.length) {
 }
 
 const browser = await chromium.launch(
-  process.env.CHROME ? { executablePath: process.env.CHROME } : {},
+  process.env.CHROME
+    ? {
+        executablePath: process.env.CHROME,
+      }
+    : {},
 );
 try {
   for (const name of names) {
@@ -381,7 +433,9 @@ try {
     });
     await context.addInitScript(CURSOR_SCRIPT);
     const page = await context.newPage();
-    await page.goto(scene.url, { waitUntil: "networkidle" });
+    await page.goto(scene.url, {
+      waitUntil: "networkidle",
+    });
     await page.waitForTimeout(800); // let entrance animations finish before recording
 
     const pixels = {
@@ -398,7 +452,10 @@ try {
     const fit =
       scene.viewport.width / scene.viewport.height < 1 ? "pad" : "fill";
     encode(result, dir, out, fit, scene.crf ?? CRF);
-    rmSync(dir, { recursive: true, force: true });
+    rmSync(dir, {
+      recursive: true,
+      force: true,
+    });
     const secs = (result.end - result.frames[0].t).toFixed(1);
     console.log(
       `${name}: ${result.frames.length} frames, ${secs}s -> ${out} (took ${((Date.now() - started) / 1000).toFixed(0)}s)`,

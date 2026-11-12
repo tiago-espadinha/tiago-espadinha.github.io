@@ -41,7 +41,11 @@ export function initFlock(canvas) {
   let W = 0;
   let H = 0;
   let boids = [];
-  const mouse = { x: 0, y: 0, active: false };
+  const mouse = {
+    x: 0,
+    y: 0,
+    active: false,
+  };
 
   // -------------------------------------------------------------------------
   // Sizing
@@ -108,7 +112,12 @@ export function initFlock(canvas) {
       const cy = Math.min(rows - 1, Math.max(0, Math.floor(b.y / cellSize)));
       cells[cy * cols + cx].push(b);
     }
-    return { cells, cols, rows, cellSize };
+    return {
+      cells,
+      cols,
+      rows,
+      cellSize,
+    };
   }
 
   /** Collect neighbours from the 3x3 block of cells around a boid. */

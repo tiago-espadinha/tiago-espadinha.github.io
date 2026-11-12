@@ -121,15 +121,28 @@ async function playNameIntro() {
       anims.push(
         path.animate(
           { strokeDashoffset: [1, 0] },
-          { ...hold, duration: 800, delay: i * 150, easing: "ease-in-out" },
+          {
+            ...hold,
+            duration: 800,
+            delay: i * 150,
+            easing: "ease-in-out",
+          },
         ),
         path.animate(
           { fillOpacity: [0, 1] },
-          { ...hold, duration: 300, delay: 850 },
+          {
+            ...hold,
+            duration: 300,
+            delay: 850,
+          },
         ),
         path.animate(
           { strokeOpacity: [1, 0] },
-          { ...hold, duration: 150, delay: 1050 },
+          {
+            ...hold,
+            duration: 150,
+            delay: 1050,
+          },
         ),
         // 2. Travel to the first letter of its word, turning text-coloured.
         path.animate(
@@ -148,14 +161,25 @@ async function playNameIntro() {
     });
     // The gap closes as the two letters part.
     anims.push(
-      cut.animate({ opacity: [1, 0] }, { ...hold, duration: 250, delay: 1250 }),
+      cut.animate(
+        { opacity: [1, 0] },
+        {
+          ...hold,
+          duration: 250,
+          delay: 1250,
+        },
+      ),
     );
     // 3. The rest of each word follows as they arrive, letter by letter.
     h1.querySelectorAll(".name-letter").forEach((letter) => {
       anims.push(
         letter.animate(
           { opacity: [0, 1] },
-          { ...hold, duration: 250, delay: 1750 + letter.dataset.index * 40 },
+          {
+            ...hold,
+            duration: 250,
+            delay: 1750 + letter.dataset.index * 40,
+          },
         ),
       );
     });
@@ -165,12 +189,23 @@ async function playNameIntro() {
       anims.push(
         span.animate(
           { opacity: [0, 1] },
-          { ...hold, duration: 100, delay: 1950 },
+          {
+            ...hold,
+            duration: 100,
+            delay: 1950,
+          },
         ),
       );
     });
     anims.push(
-      svg.animate({ opacity: [1, 0] }, { ...hold, duration: 150, delay: 2050 }),
+      svg.animate(
+        { opacity: [1, 0] },
+        {
+          ...hold,
+          duration: 150,
+          delay: 2050,
+        },
+      ),
     );
 
     await Promise.all(anims.map((a) => a.finished));

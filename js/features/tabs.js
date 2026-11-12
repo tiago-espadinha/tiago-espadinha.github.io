@@ -58,7 +58,10 @@ export function initTabs() {
     tabs.forEach((tab, i) => {
       tab.addEventListener("click", () => select(tab, false));
       tab.addEventListener("keydown", (e) => {
-        const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        const step = {
+          ArrowRight: 1,
+          ArrowLeft: -1,
+        }[e.key];
         if (!step) return;
         e.preventDefault();
         select(tabs[(i + step + tabs.length) % tabs.length], true);
@@ -97,8 +100,18 @@ function swapPanels(from, to) {
   box.style.overflow = "hidden";
 
   const fadeOut = from.animate(
-    [{ opacity: 1 }, { opacity: 0, transform: "translateY(-6px)" }],
-    { duration: 160, easing: "ease-in", fill: "forwards" }, // held until end() hides it
+    [
+      { opacity: 1 },
+      {
+        opacity: 0,
+        transform: "translateY(-6px)",
+      },
+    ],
+    {
+      duration: 160,
+      easing: "ease-in",
+      fill: "forwards",
+    }, // held until end() hides it
   );
   running.push(fadeOut);
 
@@ -112,7 +125,14 @@ function swapPanels(from, to) {
 
       running.push(
         box.animate(
-          [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
+          [
+            {
+              height: `${startHeight}px`,
+            },
+            {
+              height: `${endHeight}px`,
+            },
+          ],
           {
             duration: 380,
             easing: EASE_OUT,
@@ -123,8 +143,14 @@ function swapPanels(from, to) {
         running.push(
           child.animate(
             [
-              { opacity: 0, transform: "translateY(10px)" },
-              { opacity: 1, transform: "none" },
+              {
+                opacity: 0,
+                transform: "translateY(10px)",
+              },
+              {
+                opacity: 1,
+                transform: "none",
+              },
             ],
             {
               duration: 420,
