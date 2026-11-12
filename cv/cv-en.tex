@@ -1,115 +1,76 @@
-\documentclass[14pt]{resume} % Use the custom resume.cls style
+\documentclass{resume}
 \usepackage[english]{babel}
-\usepackage[left=0.6 in,top=0.9in,right=0.6 in,bottom=0.7in]{geometry} % Document margins
-\newcommand{\tab}[1]{\hspace{.2667\textwidth}\rlap{#1}} 
-\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
-\name{Tiago Simões} % Your name
-% You can merge both of these into a single line, if you do not have a website.
-\address{+351 912 308 887 \\ Lisboa }
-\address{\href{mailto:tiago.espadinha.simoes@gmail.com}{tiago.espadinha.simoes@gmail.com}} %\\ \href{https://www.linkedin.com/in/tiago-simões-432430235}{linkedin.com/in/tiago-simões} \\ \href{https://tiago-espadinha.github.io/}{tiago-espadinha.github.io}}  %
+\input{preamble}
 
 \begin{document}
 
+%-------------------------------------------------------------------------------
+\begin{rSection}{Experience}
 
-%----------------------------------------------------------------------------------------
-%	EDUCATION SECTION
-%----------------------------------------------------------------------------------------
-\vspace{0.5cm}
+\entry{Frontend Developer, Angular single-page app}{2025 -- present}{%
+  Build features, integrate micro frontends, run frontend releases through the
+  pipeline and tighten loose acceptance criteria with the client.}
+
+\entry{Fullstack Developer, web and mobile}{2024 -- 2025}{%
+  Shipped a Next.js web app and a React Native app in TypeScript, with GraphQL
+  resolvers and REST endpoints in Node.}
+
+\end{rSection}
+
+%-------------------------------------------------------------------------------
+\begin{rSection}{Projects}
+
+\entry{\href{https://teddex.vercel.app/}{TedDex}}{React, TypeScript, IndexedDB}{%
+  Installable Pokédex and team builder that works offline: 1,025 species served
+  as static data, cached by a service worker, covered by 500+ tests.}
+
+\entry{\href{https://nova-stream-theta.vercel.app/}{Nova Stream}}{React, Express, Redis}{%
+  One search box for films, series, music, books and games, with an Express API
+  in front of five content providers.}
+
+\entry{\href{https://med-flow-amber.vercel.app}{MedFlow}}{React, TypeScript}{%
+  Hospital operations dashboard with six roles and four languages, driven by one
+  resource configuration.}
+
+\entry{\href{https://simlab.vercel.app/}{SimLab}}{JavaScript, Canvas}{%
+  Physics and generative simulations with no build step and no dependencies.}
+
+\end{rSection}
+
+%-------------------------------------------------------------------------------
 \begin{rSection}{Education}
+
+{\bf Master's Degree in Electrical and Computer Engineering}\hfill 2022 -- 2024\\
+Instituto Superior Técnico. Main area: Control Systems, Robotics and AI.
+
 \vspace{1ex}
-{\bf Master's Degree in Electrical and Computer Engineering}\hfill {Expected 2024}\\
-Main Area: Control Systems, Robotics and AI.\\
+\textit{Dissertation:} Visual SLAM and Camera Autocalibration for Autonomous
+Cars Navigation, in the \textbf{VIENA Project}. Implemented camera systems and
+object detection for ground truth acquisition and distractor removal in VSLAM.
+
+\vspace{2ex}
+{\bf Bachelor's Degree in Electrical and Computer Engineering}\hfill 2019 -- 2022\\
 Instituto Superior Técnico
 
-
-\vspace{2ex}
-
-{\bf 
-Master Dissertation in Electrical and Computers Engineering} \hfill Expected November 2024
-
-Visual SLAM and Camera Autocalibration for Autonomous Cars Navigation in the context of \textbf{VIENA Project}. 
-
-Collaborated on the research and development of an autonomous vehicle by implementing camera systems and object detection algorithms for ground truth acquisition and distractor removal in VSLAM computations.
-
-\vspace{2ex}
-
-{\bf Bachelor's Degree in Electrical and Computer Engineering}\hfill {2019 - 2022}\\
-Instituto Superior Técnico 
-%Minor in Linguistics \smallskip \\
-%Member of Eta Kappa Nu \\
-%Member of Upsilon Pi Epsilon \\
-
-
 \end{rSection}
 
-%----------------------------------------------------------------------------------------
-% TECHINICAL STRENGTHS	
-%----------------------------------------------------------------------------------------
-\vspace{0.5cm}
-\begin{rSection}{SKILLS}
-\begin{tabular}{ @{} >{\bfseries}l @{\hspace{6ex}\vspace{2ex}} l }
-Programming Languages & C, Python, Latex, HTML, CSS, Javascript \\%, [, Java, C++, PHP, HTML, Javascipt, CSS, SQL] \\
-Software & Matlab, LTspice, Android Studio, VSCode, Git, SVN \\ %[, eclipse, pycharm, autocad]\\
-% Soft Skills & Critical Thinking, Problem-solving, Teamwork\\
-Languages & Portuguese, English\\
-\end{tabular}\\
+%-------------------------------------------------------------------------------
+\begin{rSection}{Skills}
+\begin{tabular}{@{} >{\bfseries}l @{\hspace{6ex}} l}
+Every day     & TypeScript, Angular, React, HTML, CSS, Git \\[0.6ex]
+Shipped with  & Next.js, React Native, Expo, Redux, GraphQL, REST, Node, Jest \\[0.6ex]
+Also          & Python, C, MATLAB, \LaTeX \\[0.6ex]
+Languages     & Portuguese (native), English \\
+\end{tabular}
 \end{rSection}
 
-%\begin{rSection}{EXPERIENCE}
-
-%\textbf{Role Name} \hfill Jan 2017 - Jan 2019\\
-%Company Name \hfill \textit{San Francisco, CA}
- %\begin{itemize}
- %   \itemsep -3pt {} 
- %    \item Achieved X\% growth for XYZ using A, B, and C skills.
- %    \item Led XYZ which led to X\% of improvement in ABC
- %   \item Developed XYZ that did A, B, and C using X, Y, and Z. 
- %\end{itemize}
- 
-%\textbf{Role Name} \hfill Jan 2017 - Jan 2019\\
-%Company Name \hfill \textit{San Francisco, CA}
-% \begin{itemize}
-%    \itemsep -3pt {} 
-%     \item Achieved X\% growth for XYZ using A, B, and C skills.
-%     \item Led XYZ which led to X\% of improvement in ABC
-%    \item Developed XYZ that did A, B, and C using X, Y, and Z. 
-% \end{itemize}
-
-%\end{rSection} 
-
-%----------------------------------------------------------------------------------------
-%	WORK EXPERIENCE SECTION
-%----------------------------------------------------------------------------------------
-
-%\begin{rSection}{PROJETOS}
-%\vspace{-1.25em}
-%\item \textbf{Hiring Search Tool.} {Built a tool to search for Hiring Managers and Recruiters by using ReactJS, NodeJS, Firebase and boolean queries. Over 25000 people have used it so far, with 5000+ queries being saved and shared, and search results even better than LinkedIn! \href{https://hiring-search.careerflow.ai/}{(Try it here)}}
-%\item \textbf{Short Project Title.} {Build a project that does something and had quantified success using A, B, and C. This project's description spans two lines and also won an award.}
-%\item \textbf{Short Project Title.} {Build a project that does something and had quantified success using A, B, and C. This project's description spans two lines and also won an award.}
-%\end{rSection} 
-
-%----------------------------------------------------------------------------------------
-\begin{rSection}{EXTRACURRICULAR ACTIVITIES AND WORKSHOPS} 
-\begin{itemize}
-    \vspace{1ex}
-    \item 	Git workshop organized by NEECIST (2022)
-    \vspace{2ex}
-    \item	Soldering workshop organized by NEECIST (2022)
-    \vspace{2ex}
-    \item \textit{Uncomplicating AI} workshop by Cloudflare at SINFO 31 (2024) 
+%-------------------------------------------------------------------------------
+\begin{rSection}{Workshops}
+\begin{itemize}\setlength{\itemsep}{0pt}
+  \item \textit{Uncomplicating AI}, Cloudflare at SINFO 31 (2024)
+  \item Git workshop, NEECIST (2022)
+  \item Soldering workshop, NEECIST (2022)
 \end{itemize}
-
-
 \end{rSection}
-
-%----------------------------------------------------------------------------------------
-%\begin{rSection}{Leadership} 
-%\begin{itemize}
-%    \item Admin for the \href{https://discord.com/invite/WWbjEaZ}{FAANGPath Discord community} with over 6000+ job seekers and industry mentors. Actively involved in facilitating online events, career conversations, and more alongside other admins and a team of volunteer moderators! 
-%\end{itemize}
-
-
-%\end{rSection}
-
 
 \end{document}
