@@ -33,6 +33,7 @@
 .btn-primary:hover {
   background: var(--color-amber-light);
   border-color: var(--color-amber-light);
+  color: var(--color-amber-ink);
 }
 
 /* Pop: a CTA's icon grows a quarter on hover and its label a little, both
