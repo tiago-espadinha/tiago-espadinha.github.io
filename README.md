@@ -1,6 +1,6 @@
 # Tiago Simões, portfolio
 
-My developer portfolio: a single page in plain HTML, CSS and JavaScript, with no framework and no build step, plus the LaTeX source of my CV.
+My developer portfolio: a single page in plain HTML, CSS and JavaScript, with no framework and no build step, plus a CV generated from the same content.
 
 | Hero                                                                          | Experience                                                                 | Selected work                                                                   | Phone                                             |
 | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------- |
@@ -13,8 +13,9 @@ My developer portfolio: a single page in plain HTML, CSS and JavaScript, with no
 - **Project clips:** each project plays a short muted loop over its screenshot while on screen, and opens larger in an overlay with a scrubbable player.
 - **Experience tabs:** work and education share one panel with an animated, keyboard-accessible switch.
 - **Contact form:** validated in the page and sent through EmailJS, with the email address as the fallback.
-- **CV in two languages:** English and Portuguese PDFs built from LaTeX and served from the page.
-- **Content in plain files:** projects, jobs, toolkit and contact details are edited in `content/`, without touching markup.
+- **CV in two languages:** English and Portuguese PDFs generated from the site's own content through LaTeX, and served from the page.
+- **English and Portuguese:** an EN/PT switch in the nav, with the visitor's browser language as the default and the choice remembered.
+- **Content in plain files:** projects, jobs, toolkit and contact details are edited in `content/`, without touching markup, with both languages side by side.
 
 ## Stack
 
@@ -25,7 +26,8 @@ HTML, CSS and JavaScript ES modules, served as static files. Fonts from Google F
 - **Content separate from code:** `content/` holds only data, `js/render/` turns it into DOM, and `js/features/` adds behaviour, so adding a project or reordering jobs is a one-file edit.
 - **Motion that respects the visitor:** the flock and the clips pause when not visible, and one stylesheet (`css/effects/reduced-motion.css`) switches every transition off under `prefers-reduced-motion`.
 - **Graceful fallbacks:** the hero name is in the HTML before the intro runs, a broken clip falls back to its screenshot, and a failed send points to the email address.
-- **One-command CV:** `make` in `cv/` builds both languages and publishes the PDFs the site links to.
+- **Translations that can't fall behind:** `npm run locales` fails when any text is missing a language or the markup uses an unknown key, so new content can't ship in English only.
+- **One source for site and CV:** `npm run cv` writes the CV's LaTeX from `content/` and publishes both PDFs the site links to, so the two never disagree.
 
 ## Run it
 
@@ -36,11 +38,17 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-| Command                                   | What it does                                                    |
-| ----------------------------------------- | --------------------------------------------------------------- |
-| `make -C cv`                              | Build the English and Portuguese CVs and copy them to `assets/` |
-| `make -C cv clean`                        | Remove the CV build files                                       |
-| `node scripts/record-clips.mjs [name...]` | Re-record the project clips from the live sites                 |
+| Command                      | What it does                                                    |
+| ---------------------------- | --------------------------------------------------------------- |
+| `npm install`                | Install the development tools (oxlint, oxfmt)                   |
+| `npm run check`              | Lint, check formatting and check both languages are complete    |
+| `npm run format`             | Format the code with oxfmt                                      |
+| `npm run locales`            | Only the language check                                         |
+| `npm run serve`              | Serve the site at http://localhost:8000                         |
+| `npm run cv`                 | Build the English and Portuguese CVs and copy them to `assets/` |
+| `npm run cv:en` / `cv:pt`    | Build one CV into `cv/build/` without publishing                |
+| `npm run cv:clean`           | Remove the CV build files                                       |
+| `npm run clips -- [name...]` | Re-record the project clips from the live sites                 |
 
 ## Documentation
 
