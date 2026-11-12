@@ -1,0 +1,77 @@
+/* Hero: full-height canvas with the text anchored bottom left */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+}
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/* Fades the flock out behind the text so the copy stays readable */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 40% 0 0 0;
+  background: linear-gradient(to top, var(--color-ink) 15%, transparent);
+  pointer-events: none;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 1;
+  padding: 7rem 0 4.5rem;
+}
+
+.hero-note {
+  position: absolute;
+  z-index: 1;
+  right: var(--gutter);
+  bottom: 1.5rem;
+  max-width: 24ch;
+  text-align: right;
+}
+
+.hero h1 {
+  font: 800 clamp(3rem, 9vw, 7.5rem) / 0.92 var(--font-display);
+  letter-spacing: -0.04em;
+}
+
+.hero-lede {
+  max-width: 34ch;
+  margin-top: 1.5rem;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.45;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.hero-note {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--color-mist);
+}
+
+.hero-note a {
+  color: var(--color-peri);
+}
+
+@media (max-width: 800px) {
+  /* No cursor to move on touch screens, so the hint goes */
+  .hero-note {
+    display: none;
+  }
+}

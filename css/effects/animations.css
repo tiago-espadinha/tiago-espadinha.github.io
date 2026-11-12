@@ -1,149 +1,74 @@
-/* Cursor Blink Keyframe */
-@keyframes cursor-blink {
-  0% {
+/* Hero entrance: name, lede and button rise in once on load. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero h1,
+  .hero-lede,
+  .hero-actions {
+    animation: rise-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero h1 {
+    animation-delay: 0.05s;
+  }
+
+  .hero-lede {
+    animation-delay: 0.2s;
+  }
+
+  .hero-actions {
+    animation-delay: 0.35s;
+  }
+}
+
+@keyframes rise-in {
+  from {
     opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
+    transform: translateY(18px);
   }
 }
 
-.cursor {
-  animation: cursor-blink 1s infinite;
-  font-weight: bold;
-  color: var(--color-primary);
-}
-
-/* Background Fluid Shapes Animation */
-@keyframes bg-animate {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  33% {
-    transform: translate(30px, -50px) rotate(5deg);
-  }
-  66% {
-    transform: translate(-20px, 20px) rotate(-5deg);
-  }
-  100% {
-    transform: translate(0, 0) rotate(0deg);
+/* Link underline redraws from the left on hover (.link-row a) */
+@keyframes underline-redraw {
+  from {
+    background-size: 0 2px;
   }
 }
 
-.animated-bg {
+/* Hero intro (js/features/intro.js): the logo draws, then becomes the name.
+   .intro is set before first paint and stays; .intro-pending hides the name
+   until the script takes over. */
+.intro-pending .hero h1 {
+  opacity: 0;
+}
+
+.name-intro {
   position: absolute;
-  top: -25%;
-  left: -25%;
-  width: 150%;
-  height: 150%;
-  background: radial-gradient(circle, var(--color-bg-alt) 0%, transparent 70%);
-  z-index: -1;
-  animation: bg-animate 20s linear infinite;
-  opacity: 0.5;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
   pointer-events: none;
 }
 
-/* Hero Background Transitions Slideshow */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  overflow: hidden;
-  width: 100vw;
-  left: 50%;
-  top: 80px;
-  transform: translateX(-50%);
+.name-intro > path {
+  fill-opacity: 0;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  stroke-linejoin: round;
+  transform-box: view-box;
+  transform-origin: 0 0;
 }
 
-.hero-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      0deg,
-      var(--color-bg),
-      rgba(10, 14, 26, 0) 10%,
-      rgba(10, 14, 26, 0) 90%,
-      var(--color-bg)
-    ),
-    linear-gradient(
-      90deg,
-      var(--color-bg),
-      var(--color-bg) 40%,
-      transparent 90%
-    );
-  pointer-events: none;
-}
-
-@media (max-width: 768px) {
-  .hero-bg::after {
-    background: linear-gradient(
-      0deg,
-      var(--color-bg) 15%,
-      transparent 50%,
-      var(--color-bg) 95%
-    );
+@media (prefers-reduced-motion: no-preference) {
+  /* The name builds itself, so it skips the rise, and the rest waits for it */
+  .intro .hero h1 {
+    animation: none;
   }
-}
 
-.hero-slide {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition:
-    opacity 1s ease,
-    transform 1s ease;
-  will-change: opacity, transform;
-}
+  .intro .hero-lede {
+    animation-delay: 1.6s;
+  }
 
-.hero-slide.active {
-  opacity: 1;
-}
-
-.hero-bg.fade .hero-slide {
-  transform: translateX(0) scale(1);
-}
-
-.hero-bg.fade .hero-slide.active {
-  opacity: 1;
-}
-
-.hero-bg.slide .hero-slide {
-  transform: translateX(100%);
-}
-
-.hero-bg.slide .hero-slide.active {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.hero-bg.zoom .hero-slide {
-  transform: scale(1);
-  transition:
-    opacity 1s ease,
-    transform 15s ease;
-}
-
-.hero-bg.zoom .hero-slide.active {
-  transform: scale(1.08);
-  opacity: 1;
-}
-
-/* General Scroll Reveal Effects */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
+  .intro .hero-actions {
+    animation-delay: 1.75s;
+  }
 }
