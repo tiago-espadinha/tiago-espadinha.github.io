@@ -1,0 +1,86 @@
+/* Back to top: fixed in the corner, appears once the hero is behind. On
+   hover it stretches into a pill: the arrow leaves through the top and the
+   label rises in from below. */
+.to-top {
+  position: fixed;
+  justify-content: center;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 15;
+  overflow: hidden;
+  text-decoration: none;
+  border-radius: 999px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    width 0.3s var(--ease-out),
+    transform 0.18s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.25s ease,
+    visibility 0s 0.25s;
+}
+
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* Arrow and label share the one grid cell */
+.to-top > .icon,
+.to-top::after {
+  grid-area: 1 / 1;
+  transition:
+    translate 0.3s var(--ease-out),
+    opacity 0.2s ease;
+}
+
+.to-top::after {
+  content: attr(aria-label);
+  font: 600 0.875rem/1 var(--font-body);
+  white-space: nowrap;
+  translate: 0 2.25rem;
+  opacity: 0;
+}
+
+.to-top:hover,
+.to-top:focus-visible {
+  width: 8.75rem;
+  border-color: var(--color-amber);
+  background: var(--color-amber);
+  color: var(--color-amber-ink);
+}
+
+.to-top:hover > .icon,
+.to-top:focus-visible > .icon {
+  translate: 0 -2.25rem;
+  opacity: 0;
+}
+
+.to-top:hover::after,
+.to-top:focus-visible::after {
+  translate: 0 0;
+  opacity: 1;
+}
+
+/* A tap on a touch screen leaves :hover stuck, so the pill only opens with a mouse */
+@media (hover: none) {
+  .to-top:hover:not(:focus-visible) {
+    width: 3rem;
+    border-color: var(--color-line);
+    background: color-mix(in srgb, var(--color-ink) 70%, transparent);
+    color: inherit;
+  }
+
+  .to-top:hover:not(:focus-visible) > .icon {
+    translate: 0 0;
+    opacity: 1;
+  }
+
+  .to-top:hover:not(:focus-visible)::after {
+    translate: 0 2.25rem;
+    opacity: 0;
+  }
+}

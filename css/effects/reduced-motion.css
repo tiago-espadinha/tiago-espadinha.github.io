@@ -1,0 +1,46 @@
+/* Visitors who ask for reduced motion get instant state changes */
+@media (prefers-reduced-motion: reduce) {
+  .nav,
+  .to-top,
+  .icon-links a,
+  .btn,
+  .btn .icon,
+  .icon-links .icon,
+  .to-top > .icon,
+  .toggle-thumb,
+  .send-face,
+  .nav-links a::after,
+  .nav-indicator,
+  .project-shot video,
+  .shot-expand-icon,
+  .clip-viewer-close,
+  .clip-viewer-flash,
+  .icon-links a::after,
+  .to-top::after,
+  .btn-label,
+  .channel-icon,
+  .channel-icon .icon,
+  .channel-text,
+  .channel-value,
+  .channel-arrow {
+    transition: none;
+  }
+
+  .icon-links a:active,
+  .to-top:active,
+  .btn:active {
+    transform: none;
+  }
+
+  .send-plane .icon {
+    animation: none;
+  }
+
+  .link-row a:hover {
+    animation: none;
+  }
+
+  .clip-viewer[open]::backdrop {
+    animation: none;
+  }
+}

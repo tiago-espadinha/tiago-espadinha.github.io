@@ -1,0 +1,48 @@
+/* Small two-option switch (work / education). An amber thumb (tabs.js)
+   slides under the selected option. */
+.toggle {
+  position: relative;
+  display: inline-flex;
+  padding: 3px;
+  border: 1.5px solid var(--color-line);
+  border-radius: 999px;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  width: var(--w, 0);
+  border-radius: 999px;
+  background: var(--color-amber);
+  transform: translateX(var(--x, 0));
+  transition:
+    transform 0.4s var(--ease-pop),
+    width 0.4s var(--ease-pop);
+}
+
+.toggle button {
+  position: relative; /* above the thumb */
+  padding: 0.35rem 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--color-mist);
+  font: 600 0.9375rem/1.4 var(--font-body);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.toggle button:hover {
+  color: var(--color-chalk);
+}
+
+.toggle button[aria-selected="true"] {
+  color: var(--color-amber-ink);
+}
+
+/* Without the script there is no thumb, so the selected option fills itself */
+.toggle:not(:has(.toggle-thumb)) button[aria-selected="true"] {
+  background: var(--color-amber);
+}

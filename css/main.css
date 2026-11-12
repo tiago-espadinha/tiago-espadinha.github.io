@@ -1,5 +1,23 @@
+/* Order matters: tokens, then base, then page frame, then components in page
+   order, then effects that override them. */
+
 @import "base/variables.css";
 @import "base/reset.css";
+@import "base/accessibility.css";
+
 @import "layout/layout.css";
-@import "components/components.css";
+
+@import "components/buttons.css";
+@import "components/nav.css";
+@import "components/hero.css";
+@import "components/toggle.css";
+@import "components/experience.css";
+@import "components/projects.css";
+@import "components/clip-viewer.css";
+@import "components/contact.css";
+@import "components/form.css";
+@import "components/footer.css";
+@import "components/to-top.css";
+
 @import "effects/animations.css";
+@import "effects/reduced-motion.css";

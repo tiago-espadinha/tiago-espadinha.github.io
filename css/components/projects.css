@@ -1,0 +1,229 @@
+/* Projects: alternating rows of media and text */
+.project {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--color-line);
+  scroll-margin-top: 4.5rem; /* clears the pinned nav */
+}
+
+/* Alternate sides. The media column keeps the same width either way. */
+.project:nth-of-type(even) {
+  grid-template-columns: 5fr 7fr;
+}
+
+.project:nth-of-type(even) .project-shot {
+  order: 2;
+}
+
+.project-shot {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-ink-raised);
+  border-radius: var(--radius);
+}
+
+.project-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Two phone screenshots side by side, cropped at the bottom edge */
+.project-shot--phones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(0, 1fr); /* crop to the box so the hover scroll has room */
+  gap: 1.5rem;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.project-shot--phones img {
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+/* Clip: covers the screenshots, hidden until its first frame plays */
+.project-shot video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-shot.has-frame video {
+  opacity: 1;
+}
+
+/* Corner label: the hover cue on screenshots */
+.shot-cue {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-ink) 82%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--color-chalk);
+  font: 500 0.8125rem/1.4 var(--font-body);
+  display: none;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Clip: the whole shot is a button that opens the overlay */
+.shot-expand {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  border: 0;
+  border-radius: inherit;
+  background: none;
+  cursor: zoom-in;
+}
+
+.shot-expand:focus-visible {
+  outline-offset: -3px;
+  border-radius: var(--radius);
+}
+
+/* A round expand icon in the middle of the clip */
+.shot-expand-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-ink) 72%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--color-chalk);
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.15s ease;
+}
+
+.shot-expand-icon .icon {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.shot-expand:hover .shot-expand-icon,
+.shot-expand:focus-visible .shot-expand-icon {
+  border-color: var(--color-chalk);
+}
+
+/* With a mouse the icon waits for hover; on touch it stays as the cue */
+@media (hover: hover) {
+  .shot-expand-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  .shot-expand:hover .shot-expand-icon,
+  .shot-expand:focus-visible .shot-expand-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Looking around a screenshot needs a cursor, and is motion the visitor
+   may have asked not to see */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .shot-cue {
+    display: block;
+  }
+
+  .project-shot--pan:hover .shot-cue {
+    opacity: 0;
+  }
+
+  /* The shot sinks a few degrees under the cursor (--px, --py from media.js).
+     Before that it already leans a little towards wherever the cursor is on
+     the page (--ax, --ay), which hints that it reacts. */
+  .project-shot {
+    transform: perspective(900px)
+      rotateX(calc((0.5 - var(--py, 0.5)) * 7deg - var(--ay, 0) * 5.5deg))
+      rotateY(calc((var(--px, 0.5) - 0.5) * 7deg + var(--ax, 0) * 5.5deg));
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .project-shot:hover {
+    transition-duration: 0.15s;
+  }
+
+  /* Wide screenshots zoom in and follow the cursor (--px, --py from media.js) */
+  .project-shot--pan img {
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .project-shot--pan:not(.project-shot--phones):hover img {
+    transform: translate(
+        calc((0.5 - var(--px, 0.5)) * 16%),
+        calc((0.5 - var(--py, 0.5)) * 16%)
+      )
+      scale(1.18);
+  }
+
+  /* Phone screenshots are cropped at the bottom, so they scroll instead */
+  .project-shot--phones.project-shot--pan img {
+    transition: object-position 0.6s ease;
+  }
+
+  .project-shot--phones.project-shot--pan:hover img {
+    object-position: bottom;
+    transition-duration: 2.5s;
+  }
+}
+
+.project h3 {
+  font: 800 2rem/1.1 var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.project-info p {
+  max-width: 46ch;
+  margin-top: 0.75rem;
+  color: var(--color-mist);
+}
+
+.project-info .project-summary {
+  color: var(--color-chalk);
+}
+
+.project-info .project-stack {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  color: var(--color-peri);
+}
+
+@media (max-width: 800px) {
+  .project,
+  .project:nth-of-type(even) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .shot-expand-icon {
+    display: none;
+  }
+
+  .project:nth-of-type(even) .project-shot {
+    order: 0;
+  }
+}
