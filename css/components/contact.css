@@ -1,0 +1,123 @@
+/* Contact section and the list of ways to reach me */
+.contact {
+  background: var(--color-ink-raised);
+}
+
+.contact p {
+  max-width: 50ch;
+  margin-bottom: 1.5rem;
+  color: var(--color-mist);
+}
+
+.contact h2 {
+  margin-bottom: 1.5rem;
+}
+
+.contact .contact-note {
+  margin-bottom: 2rem;
+  color: var(--color-chalk);
+  font-size: 1.125rem;
+}
+
+/* Ways to reach me: one row each, icon, label over value, arrow */
+.channels {
+  border-top: 1px solid var(--color-line);
+}
+
+.channels a {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--color-line);
+  text-decoration: none;
+}
+
+.channel-icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1.5px solid var(--color-line);
+  border-radius: 50%;
+  font-size: 1.05rem;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.channel-text {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.channel-label {
+  color: var(--color-mist);
+  font-size: 0.8125rem;
+}
+
+.channel-value {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  transition: color 0.15s ease;
+}
+
+.channel-arrow {
+  color: var(--color-mist);
+  transition:
+    scale 0.25s var(--ease-pop),
+    color 0.15s ease;
+}
+
+/* Pop: the icon grows inside its circle, the text and the arrow grow too */
+.channel-icon .icon {
+  transition: scale 0.25s var(--ease-pop);
+}
+
+.channel-text {
+  transform-origin: 0 50%;
+  transition: scale 0.25s var(--ease-pop);
+}
+
+.channels a:hover .channel-icon,
+.channels a:focus-visible .channel-icon {
+  border-color: var(--color-amber);
+  color: var(--color-amber);
+}
+
+.channels a:hover .channel-value,
+.channels a:hover .channel-arrow,
+.channels a:focus-visible .channel-value,
+.channels a:focus-visible .channel-arrow {
+  color: var(--color-amber);
+}
+
+.channels a:hover .channel-icon .icon,
+.channels a:hover .channel-arrow,
+.channels a:focus-visible .channel-icon .icon,
+.channels a:focus-visible .channel-arrow {
+  scale: 1.25;
+}
+
+.channels a:hover .channel-text,
+.channels a:focus-visible .channel-text {
+  scale: 1.04;
+}
+
+@media (max-width: 480px) {
+  /* Leave the full row to the address so it stays on one line */
+  .channels a {
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+  }
+
+  .channel-arrow {
+    display: none;
+  }
+
+  .channel-value {
+    font-size: 0.9375rem;
+  }
+}

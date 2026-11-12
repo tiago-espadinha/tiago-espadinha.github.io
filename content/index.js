@@ -3,3 +3,4 @@
 export { projects } from "./projects.js";
 export { work, education } from "./experience.js";
 export { toolkit } from "./toolkit.js";
+export { contact } from "./contact.js";
