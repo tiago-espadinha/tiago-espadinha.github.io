@@ -22,9 +22,14 @@ export function locale() {
  * `params`: t({ en: "Hi {name}" }, { name: "Ana" }).
  */
 export function t(text, params) {
+  return translate(text, locale(), params);
+}
+
+/** t() for a given locale, so the CV build can use it outside the browser. */
+export function translate(text, lang, params) {
   let value = text;
   if (value && typeof value === "object")
-    value = value[locale()] ?? value[DEFAULT_LOCALE];
+    value = value[lang] ?? value[DEFAULT_LOCALE];
   if (typeof value !== "string") return "";
   if (!params) return value;
   return value.replace(/\{(\w+)\}/g, (match, key) => params[key] ?? match);

@@ -17,6 +17,11 @@
  * images     Screenshots: { src, alt: {en, pt} }. The first is the clip's poster.
  * liveUrl    Link to the running project, with liveLabel {en, pt} as its text.
  * codeUrl    Link to the source.
+ *
+ * The CV lists the projects too (scripts/build-cv.mjs), title linked to
+ * liveUrl, with a shorter text and stack:
+ * cv         {en, pt} The CV's one or two lines. Falls back to summary.
+ * cvStack    Optional: the few tags the CV shows. Falls back to stack.
  */
 export const projects = [
   {
@@ -48,6 +53,11 @@ export const projects = [
       pt: "Abrir a app",
     },
     codeUrl: "https://github.com/tiago-espadinha/NovaStream",
+    cv: {
+      en: "One search box for films, series, music, books and games, with an Express API in front of five content providers.",
+      pt: "Uma só pesquisa para filmes, séries, música, livros e jogos, com uma API Express à frente de cinco fornecedores de conteúdo.",
+    },
+    cvStack: ["React", "Express", "Redis"],
   },
   {
     id: "simlab",
@@ -78,6 +88,11 @@ export const projects = [
       pt: "Abrir o laboratório",
     },
     codeUrl: "https://github.com/tiago-espadinha/simlab",
+    cv: {
+      en: "Physics and generative simulations with no build step and no dependencies.",
+      pt: "Simulações físicas e generativas sem build step nem dependências.",
+    },
+    cvStack: ["JavaScript", "Canvas"],
   },
   {
     id: "medflow",
@@ -108,6 +123,11 @@ export const projects = [
       pt: "Abrir a app",
     },
     codeUrl: "https://github.com/tiago-espadinha/MedFlow",
+    cv: {
+      en: "Hospital operations dashboard with six roles and four languages, driven by one resource configuration.",
+      pt: "Dashboard de operações hospitalares com seis perfis e quatro idiomas, gerido por uma única configuração de recursos.",
+    },
+    cvStack: ["React", "TypeScript"],
   },
   {
     id: "teddex",
@@ -154,5 +174,10 @@ export const projects = [
       pt: "Abrir a app",
     },
     codeUrl: "https://github.com/tiago-espadinha/TedDex",
+    cv: {
+      en: "Installable Pokédex and team builder that works offline: 1,025 species served as static data, cached by a service worker, covered by 500+ tests.",
+      pt: "Pokédex e construtor de equipas instalável que funciona offline: 1025 espécies em dados estáticos, cache num service worker, mais de 500 testes.",
+    },
+    cvStack: ["React", "TypeScript", "IndexedDB"],
   },
 ];

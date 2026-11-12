@@ -18,21 +18,24 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
+import { cv } from "../content/cv.js";
 import * as contentModule from "../content/index.js";
 import { LOCALES, lookup } from "../js/lib/i18n.js";
 
-// A plain object, so sections can be looked up by name.
-const content = { ...contentModule };
+// A plain object, so sections can be looked up by name. The CV-only content
+// is checked too, though the site doesn't load it.
+const content = { ...contentModule, cv };
 const ROOT = new URL("..", import.meta.url).pathname;
 
 // Fields that hold prose and so must be { en, pt }. `*` matches any array
-// index or object key.
+// index or object key; a trailing `?` marks a field that may be left out.
 const FIELDS = {
-  projects: ["*.summary", "*.detail", "*.liveLabel", "*.images.*.alt"],
-  work: ["*.title", "*.description"],
-  education: ["*.title", "*.description"],
+  projects: ["*.summary", "*.detail", "*.liveLabel", "*.images.*.alt", "*.cv?"],
+  work: ["*.title", "*.description", "*.cv?"],
+  education: ["*.title", "*.description?", "*.cv?"],
   toolkit: ["*.label"],
   contact: ["note"],
+  cv: ["city", "headings.*", "dates.*", "skills.*.label", "workshops.*"],
 };
 
 const problems = [];
@@ -92,12 +95,13 @@ function select(value, parts, path) {
 function checkFields() {
   Object.entries(FIELDS).forEach(([name, patterns]) => {
     patterns.forEach((pattern) => {
-      select(content[name], pattern.split("."), name).forEach(
-        ([path, value]) => {
-          if (!isLocalized(value))
-            problems.push(`${path}: needs { ${LOCALES.join(", ")} }`);
-        },
-      );
+      const optional = pattern.endsWith("?");
+      const parts = pattern.replace(/\?$/, "").split(".");
+      select(content[name], parts, name).forEach(([path, value]) => {
+        if (optional && value === undefined) return;
+        if (!isLocalized(value))
+          problems.push(`${path}: needs { ${LOCALES.join(", ")} }`);
+      });
     });
   });
   // Everything in ui.js is interface text.

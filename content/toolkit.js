@@ -1,7 +1,8 @@
 /**
  * The Toolkit list beside Experience: one row per group, in this order.
  * Each group: { label: {en, pt}, items }. An item that needs translating
- * can be {en, pt}; names of tools stay plain strings.
+ * can be {en, pt}; names of tools stay plain strings. The CV lists the groups
+ * without `onCv: false` as skills, then its own rows from content/cv.js.
  */
 export const toolkit = [
   {
@@ -32,6 +33,7 @@ export const toolkit = [
       en: "Side projects",
       pt: "Projetos pessoais",
     },
+    onCv: false,
     items: [
       {
         en: "PWAs and offline storage",
@@ -47,6 +49,7 @@ export const toolkit = [
       en: "Learning now",
       pt: "A aprender",
     },
+    onCv: false,
     items: [
       {
         en: "SQL and schema design",

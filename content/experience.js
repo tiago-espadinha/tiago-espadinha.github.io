@@ -1,10 +1,14 @@
 /**
- * The Experience section's two tabs. Entries show in this order, so keep the
- * most recent first. Each entry: { from, to, title, description }.
+ * The Experience section's two tabs, also printed on the CV
+ * (scripts/build-cv.mjs). Entries show in this order, so keep the most recent
+ * first.
  *
  * from, to     Years. `to: null` means ongoing ("2025 to now").
  * title        {en, pt}
- * description  {en, pt}
+ * school       Education only: where. Shown before the description.
+ * description  {en, pt} Optional for education.
+ * cv           {en, pt} Optional: replaces the description on the CV. Can use
+ *              *italic*, **bold** and a blank line for a new paragraph.
  */
 export const work = [
   {
@@ -35,15 +39,29 @@ export const work = [
 
 export const education = [
   {
-    from: 2019,
+    from: 2022,
     to: 2024,
     title: {
-      en: "Electrical and Computer Engineering, Instituto Superior Técnico",
-      pt: "Engenharia Eletrotécnica e de Computadores, Instituto Superior Técnico",
+      en: "Master's Degree in Electrical and Computer Engineering",
+      pt: "Mestrado em Engenharia Eletrotécnica e de Computadores",
     },
+    school: "Instituto Superior Técnico",
     description: {
       en: "Specialised in control, robotics and AI. Thesis on visual SLAM and camera calibration for autonomous cars.",
       pt: "Especialização em controlo, robótica e IA. Dissertação sobre SLAM visual e calibração de câmaras para veículos autónomos.",
     },
+    cv: {
+      en: "Main area: Control Systems, Robotics and AI.\n\n*Dissertation:* Visual SLAM and Camera Autocalibration for Autonomous Cars Navigation, in the **VIENA Project**. Implemented camera systems and object detection for ground truth acquisition and distractor removal in VSLAM.",
+      pt: "Especialização: Controlo, Robótica e IA.\n\n*Dissertação:* Monitorização de trajetória de veículos autónomos usando câmaras, no **Projeto VIENA**. Câmaras e deteção de objetos para *ground truth* e remoção de distratores em VSLAM.",
+    },
+  },
+  {
+    from: 2019,
+    to: 2022,
+    title: {
+      en: "Bachelor's Degree in Electrical and Computer Engineering",
+      pt: "Licenciatura em Engenharia Eletrotécnica e de Computadores",
+    },
+    school: "Instituto Superior Técnico",
   },
 ];

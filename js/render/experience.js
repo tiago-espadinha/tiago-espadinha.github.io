@@ -12,11 +12,14 @@ export function renderTimeline(containerId, entries) {
       entry.to === null
         ? t(ui.experience.ongoing, { from: entry.from })
         : t(ui.experience.range, { from: entry.from, to: entry.to });
+    const description = [entry.school, t(entry.description)]
+      .filter(Boolean)
+      .join(". ");
     const item = el("div", "job");
     item.append(
       el("p", "job-dates", dates),
       el("h3", "", t(entry.title)),
-      el("p", "job-description", t(entry.description)),
+      el("p", "job-description", description),
     );
     container.appendChild(item);
   });
