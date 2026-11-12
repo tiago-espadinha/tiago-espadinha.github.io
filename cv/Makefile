@@ -4,26 +4,26 @@
 #   make clean    remove build/
 
 LANGS  := en pt
+NAME   := tiago_simoes-cv
 BUILD  := build
 ASSETS := ../assets
 LATEXMK := latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=$(BUILD)
 
-# The English CV is the one the site links to as cv.pdf.
-PUBLISHED := $(ASSETS)/cv.pdf $(ASSETS)/cv-pt.pdf
+# The site links to these from content/contact.js.
+PUBLISHED := $(LANGS:%=$(ASSETS)/$(NAME)_%.pdf)
 
 .PHONY: all $(LANGS) clean
+# Keep the PDFs in build/, which make would otherwise delete as intermediate.
+.PRECIOUS: $(BUILD)/$(NAME)_%.pdf
 
 all: $(PUBLISHED)
 
-$(LANGS): %: $(BUILD)/cv-%.pdf
+$(LANGS): %: $(BUILD)/$(NAME)_%.pdf
 
-$(BUILD)/cv-%.pdf: cv-%.tex preamble.tex resume.cls
-	$(LATEXMK) $<
+$(BUILD)/$(NAME)_%.pdf: cv-%.tex preamble.tex resume.cls
+	$(LATEXMK) -jobname=$(NAME)_$* $<
 
-$(ASSETS)/cv.pdf: $(BUILD)/cv-en.pdf
-	cp $< $@
-
-$(ASSETS)/cv-pt.pdf: $(BUILD)/cv-pt.pdf
+$(ASSETS)/$(NAME)_%.pdf: $(BUILD)/$(NAME)_%.pdf
 	cp $< $@
 
 clean:

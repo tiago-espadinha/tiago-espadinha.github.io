@@ -23,8 +23,8 @@ export const contact = {
     templateId: "template_cj71wjc",
   },
   cv: {
-    en: "assets/cv.pdf",
-    pt: "assets/cv-pt.pdf",
+    en: "assets/tiago_simoes-cv_en.pdf",
+    pt: "assets/tiago_simoes-cv_pt.pdf",
   },
   links: [
     {
